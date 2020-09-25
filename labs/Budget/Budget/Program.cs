@@ -9,7 +9,7 @@ namespace Budget
 {
     class Program
     {       
-            static string accountNumber = "";
+            static int accountNumber = 0;
             static string nickName = "";
             static decimal startingBalance = 0;
         static void Main(string[] args)
@@ -20,10 +20,10 @@ namespace Budget
             
         }
 
-        static void userAccount(string nickName, string accountNumber, decimal startingBalance)
+        static void userAccount(string nickName, int accountNumber, decimal startingBalance)
         {
             Console.WriteLine("Enter your name:");
-            nickName = ReadString();
+            nickName = ReadName();
             Console.WriteLine("Enter your Account Number:");
             accountNumber = ReadAcctNumber();
             Console.WriteLine("Enter the starting balance:");
@@ -34,27 +34,28 @@ namespace Budget
             Console.WriteLine(startingBalance);
         }
 
-        private static string ReadAcctNumber ()
+        private static int ReadAcctNumber ()
         {
             do
             {
-                string value = Console.ReadLine();
-
-                //If not required or not empty return
-                if (value != "")
-                    return value;
-                DisplayError("Please enter your Account Number");
+                string inputNumber = Console.ReadLine();
+                if (inputNumber == "")
+                    DisplayError("Please enter your Account Number");
+                else if (Int32.TryParse( inputNumber, out accountNumber))
+                   return accountNumber;
+                else
+                DisplayError("Please enter a valid Account Number (digits only)");
             } while (true);
         }
 
-        private static string ReadString()
+        private static string ReadName()
         {
             do
             {
-                string value = Console.ReadLine();
+                string inputName = Console.ReadLine();
 
-                if (value != "")
-                    return value;
+                if (inputName != "")
+                    return inputName;
                 DisplayError("Please enter your name");
             } while (true);
         }
@@ -69,7 +70,7 @@ namespace Budget
 
                 if (String.IsNullOrEmpty(inputValue) || !(Decimal.TryParse(inputValue, out startingBalance))) //makes sure tryparse is true (user input is numbers )
                     DisplayError("Please enter a starting balance");
-                else if (startingBalance < 0)
+                else if (startingBalance <= 0)
                     DisplayError("Must be greater than 0");
                 else
                      return startingBalance;
