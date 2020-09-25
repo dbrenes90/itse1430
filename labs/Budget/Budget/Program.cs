@@ -48,7 +48,7 @@ namespace Budget
                 if (!Decimal.TryParse(value, out decimal subBalance) || subBalance <=0)
 
                     DisplayError("Value must be greater than 0");
-                else
+                else if (subBalance < startingBalance)
                 {
                     decimal newBalance = startingBalance - subBalance;
 
@@ -64,7 +64,8 @@ namespace Budget
                     Console.WriteLine("Category of the expense :\t" + category);
                     Console.WriteLine("Date of the expense: \t\t" + date);
                     return newBalance;
-                }
+                } else
+                    DisplayError("Insufficient Funds");
             } while (true);
         }
     
