@@ -9,19 +9,12 @@ namespace Budget
 {
     class Program
     {       
-            static int accountNumber = 0;
+            static string accountNumber = "";
             static string nickName = "";
             static decimal startingBalance = 0;
-        static void Main(string[] args)
+        static void Main ( string[] args )
         {
             Console.WriteLine("Welcome to the Account Information System");
-            userAccount(nickName, accountNumber, startingBalance);
-
-            
-        }
-
-        static void userAccount(string nickName, int accountNumber, decimal startingBalance)
-        {
             Console.WriteLine("Enter your name:");
             nickName = ReadName();
             Console.WriteLine("Enter your Account Number:");
@@ -29,22 +22,73 @@ namespace Budget
             Console.WriteLine("Enter the starting balance:");
             startingBalance = ReadBalance(0);
 
-            Console.WriteLine(nickName);
-            Console.WriteLine(accountNumber);
-            Console.WriteLine(startingBalance);
+            // userAccount();
+            while (true)
+            {
+                switch (DisplayMenu())
+                {
+                    case '0': break;
+                    case '1': break;
+                    case '2': break;
+
+                }
+            }
         }
 
-        private static int ReadAcctNumber ()
+        static int DisplayMenu ()
         {
             do
             {
-                string inputNumber = Console.ReadLine();
-                if (inputNumber == "")
-                    DisplayError("Please enter your Account Number");
-                else if (Int32.TryParse( inputNumber, out accountNumber))
-                   return accountNumber;
+
+
+                Console.WriteLine("------Welcome to the Menu--------");
+                Console.WriteLine("----Your Account Information----");
+                Console.WriteLine("Your name is \t\t\t" + nickName);
+                Console.WriteLine("Your account number is \t\t" + accountNumber);
+
+                Console.WriteLine("Your starting balance is \t\t" + startingBalance.ToString("C"));
+                Console.WriteLine("Enter (0) to Quit the Program");
+                Console.WriteLine("Enter (1) to update your account number");
+                Console.WriteLine("Enter (2) to modify the account balance");
+
+                string value = Console.ReadLine();
+                Int32.TryParse(value, out int selection);
+
+
+                if (selection >= 0 && selection <= 2)
+
+                    return selection;
+
                 else
-                DisplayError("Please enter a valid Account Number (digits only)");
+                    DisplayError("Please select a valid option");
+
+            } while (true);
+        }
+        /*static void userAccount()//string nickName, string accountNumber, decimal startingBalance)
+        {
+            Console.WriteLine("Enter your name:");
+            nickName = ReadName();
+            Console.WriteLine("Enter your Account Number:");
+            accountNumber = ReadAcctNumber();
+            Console.WriteLine("Enter the starting balance:");
+            startingBalance = ReadBalance(0);
+        }*/
+
+        private static string ReadAcctNumber ()
+        {
+            do
+            {
+                string value = Console.ReadLine();
+                if (value == "")
+                    DisplayError("Please enter your Account Number");
+                else if (Int32.TryParse(value, out int inputNumber))
+                        {
+                    accountNumber = inputNumber.ToString();
+                    return accountNumber;
+                }
+                
+                else
+                    DisplayError("Please enter a valid Account Number (digits only)");
             } while (true);
         }
 
@@ -74,6 +118,7 @@ namespace Budget
                     DisplayError("Must be greater than 0");
                 else
                      return startingBalance;
+
             } while (true);
         }
         static void DisplayError( string message)
