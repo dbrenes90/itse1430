@@ -1,13 +1,98 @@
 ﻿using System;
-using System.Text;
+// 09/24/2020
+// Daniel Brenes
+// Lab 1 
+// Budget
 
+
+namespace Budget
+{
+    class Program
+    {       
+            static string accountNumber = "";
+            static string nickName = "";
+            static decimal startingBalance = 0;
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Welcome to the Account Information System");
+            userAccount(nickName, accountNumber, startingBalance);
+
+            
+        }
+
+        static void userAccount(string nickName, string accountNumber, decimal startingBalance)
+        {
+            Console.WriteLine("Enter your name:");
+            nickName = ReadString();
+            Console.WriteLine("Enter your Account Number:");
+            accountNumber = ReadAcctNumber();
+            Console.WriteLine("Enter the starting balance:");
+            startingBalance = ReadBalance(0);
+
+            Console.WriteLine(nickName);
+            Console.WriteLine(accountNumber);
+            Console.WriteLine(startingBalance);
+        }
+
+        private static string ReadAcctNumber ()
+        {
+            do
+            {
+                string value = Console.ReadLine();
+
+                //If not required or not empty return
+                if (value != "")
+                    return value;
+                DisplayError("Please enter your Account Number");
+            } while (true);
+        }
+
+        private static string ReadString()
+        {
+            do
+            {
+                string value = Console.ReadLine();
+
+                if (value != "")
+                    return value;
+                DisplayError("Please enter your name");
+            } while (true);
+        }
+
+        static decimal ReadBalance ( decimal minimumValue )
+        {
+            
+            do
+            {
+                string inputValue = Console.ReadLine();
+                Decimal.TryParse(inputValue, out decimal startingBalance);
+
+                if (String.IsNullOrEmpty(inputValue) || !(Decimal.TryParse(inputValue, out startingBalance))) //makes sure tryparse is true (user input is numbers )
+                    DisplayError("Please enter a starting balance");
+                else if (startingBalance < 0)
+                    DisplayError("Must be greater than 0");
+                else
+                     return startingBalance;
+            } while (true);
+        }
+        static void DisplayError( string message)
+        {
+            Console.BackgroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.Black;
+            Console.WriteLine(message);
+            Console.ResetColor();
+
+
+        }
+    }
+}/*
 namespace MovieLibrary2
 {
     public class Program
     {
-        static void Main(string[] args)
+        static void Main ( string[] args )
         {
-            
+
             //Parameters vs arguments
 
             // while => while (E) S;
@@ -18,10 +103,10 @@ namespace MovieLibrary2
                 //scope - lifetime of a variable: starts at declaration and continues until end of current scope
                 //char choice = DisplayMenu();
                 //if (choice == 'Q')
-              //      return;
-              //  else if (choice == 'A')
-              //      AddMovie();
-              switch(DisplayMenu())
+                //      return;
+                //  else if (choice == 'A')
+                //      AddMovie();
+                switch (DisplayMenu())
                 {
                     case 'Q': return;
                     case 'A': AddMovie(); break;
@@ -31,18 +116,18 @@ namespace MovieLibrary2
             };
 
 
-            
+
 
 
 
         }
-            static string title = "";
-            static string description = "";
-            static string rating = "";
-            static int duration;
-            static bool isClassic;
-        
-        static void AddMovie()
+        static string title = "";
+        static string description = "";
+        static string rating = "";
+        static int duration;
+        static bool isClassic;
+
+        static void AddMovie ()
         {
             //Get title
             Console.WriteLine("Movie title: ");
@@ -54,10 +139,10 @@ namespace MovieLibrary2
             // 3. (Sort of) Cannot figure out type or it is wrong
             //string title = ReadString(true);
             //int title2 = "";
-           title = ReadString(true); //string title = ReadString(true);
-                                          //variable is not dynamic, but the compiler determines the type when using var
-                                          //var use it when it makes sense, don't use it when it doesn't
-                                          // makes sense when the type of the variable is relevant to you, or implicit
+            title = ReadString(true); //string title = ReadString(true);
+                                      //variable is not dynamic, but the compiler determines the type when using var
+                                      //var use it when it makes sense, don't use it when it doesn't
+                                      // makes sense when the type of the variable is relevant to you, or implicit
 
             //Get description
             Console.WriteLine("Description (optional): ");
@@ -78,8 +163,8 @@ namespace MovieLibrary2
             //string isClassic = Console.ReadLine();
             isClassic = ReadBoolean();
         }
-        
-        static char DisplayMenu()
+
+        static char DisplayMenu ()
         {
             // 1 + iteration, post test statement
             //do Statement while (expression);
@@ -115,7 +200,7 @@ namespace MovieLibrary2
 
 
         }
-        private static void DisplayError(string message)
+        private static void DisplayError ( string message )
         {
             Console.BackgroundColor = ConsoleColor.Red;
             Console.ForegroundColor = ConsoleColor.White;
@@ -123,7 +208,8 @@ namespace MovieLibrary2
             Console.WriteLine(message);
 
             Console.ResetColor();
-        }static bool ReadBoolean()
+        }
+        static bool ReadBoolean ()
         {
             do
             {
@@ -144,17 +230,17 @@ namespace MovieLibrary2
                 // default :: default : S*
 
                 //if (value == "Y" || value == "y") //NOT THE SAME :: = VALUE == "y" || "Y"
-                 //   return true;
+                //   return true;
                 //else if (value == "N" || value =="n")
-                  //  return false;
-                  //else
-                  // S;
-                  // C++ Differences
-                  // 1. No fallthrough  case E: S; break; case E2: S;
-                  // 2. Any expression type is allowed (C++ does not use other than int)
-                  // 3. Case labels must be unique and compile time constants
-                  // 4. Multiple statements are allowed
-                  switch (value.ToLower())
+                //  return false;
+                //else
+                // S;
+                // C++ Differences
+                // 1. No fallthrough  case E: S; break; case E2: S;
+                // 2. Any expression type is allowed (C++ does not use other than int)
+                // 3. Case labels must be unique and compile time constants
+                // 4. Multiple statements are allowed
+                switch (value.ToLower())
                 {
                     case "X": Console.WriteLine("Wrong Value"); break;
 
@@ -175,17 +261,17 @@ namespace MovieLibrary2
 
                     default: break; //if nothing else
                 };
-                
+
 
                 DisplayError("Invalid option");
             } while (true);
 
         }
-        static int ReadInt32()
+        static int ReadInt32 ()
         {
             return ReadInt32(Int32.MinValue);
         }
-        static int ReadInt32(int minimumValue)
+        static int ReadInt32 ( int minimumValue )
         {
             do
             {
@@ -263,9 +349,9 @@ namespace MovieLibrary2
             builder.Append("\t");
             builder.Append(isClassic);
             builder.Append("\t");
-           // message = builder.ToString();
-           // Console.WriteLine(message);
-            
+            // message = builder.ToString();
+            // Console.WriteLine(message);
+
             //5. String Joining
             //message = String.Join("\t", title, rating, duration, isClassic);
 
@@ -280,13 +366,13 @@ namespace MovieLibrary2
             // D: Only works with string literals
 
             var classicIndicator = isClassic ? "Yes" : "No";
-           /* var classicIndicator = "";
-            if (isClassic)
-                classicIndicator = "Yes";
-            else
-                classicIndicator = "No";
-            */
-            
+            /* var classicIndicator = "";
+             if (isClassic)
+                 classicIndicator = "Yes";
+             else
+                 classicIndicator = "No";
+             */
+/*
             var message = $"{title}\t\t{rating}\t{duration}\t\t{classicIndicator}";
             // Same as var message = String.Format("{0}\t{1}\t{2}\t{3}", title, rating, duration, isClassic);
             Console.WriteLine(message);
@@ -338,7 +424,7 @@ namespace MovieLibrary2
         //greater than =>
         //greater than or equal to =>
         //same as java and C++ 
-        static string ReadString(bool required)
+        static string ReadString ( bool required )
         {
             do
             {
@@ -359,7 +445,7 @@ namespace MovieLibrary2
         // [modifiers] T id ([parameters) {S*}
         //Function signature - [return-type] name, parameter types
 
-        static void FunWithStrings()
+        static void FunWithStrings ()
         {
             //5 characters in it, takes up 10 bytes.. each character is 2 bytes.(unicode based) 
             // C++ difference: no NULL
@@ -447,7 +533,7 @@ namespace MovieLibrary2
             //String formatting
             //1. Format argument overloads WriteLine(string, {args})
             //2. String.format
-            
+
             //3. String concatenation
             // Advantages: Programmatically build it
             // A: Somewhat readable
@@ -486,4 +572,4 @@ namespace MovieLibrary2
 
         }
     }
-}
+}*/
