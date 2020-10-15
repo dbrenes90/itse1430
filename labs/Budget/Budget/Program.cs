@@ -1,9 +1,9 @@
-﻿using System;
-// 09/24/2020
+﻿// 09/24/2020
 // Daniel Brenes
 // Lab 1 
 // Budget
 
+using System;
 
 namespace Budget
 {
