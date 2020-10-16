@@ -8,19 +8,65 @@ using System.Windows.Forms;
 
 namespace MovieLibrary.WinformsHost
 {
+    // class - declaration ::= {access} {modifiers} class identiefier { : T}
     public partial class MovieForm : Form
     {
-        public MovieForm ()
+        //Access:
+        // Public - accessible in derived type
+        // Protected - accessible in owning type and derived types
+        // Private - only owning type
+
+        //Members: properties, methods only 
+        // Virtual - base type provides the base implementation but a derived type may override it
+        // Abstract - Base type defines it but does not implement, derived types must override it
+
+        // Syntax
+        // constructor-declaration :: = {access} Type () {S*}
+        public MovieForm ()//: base()
         {
+            //DO NOT CALL virtual members inside of constructors
             InitializeComponent();
         }
 
+        public MovieForm ( Movie movie) : this(movie, null)
+        {
+            //Movie = movie; 
+        }
+
+        //Constructor chaining - calling one constructor from another
+        public MovieForm ( Movie movie, string title ) : this()
+        {
+            //InitializeComponent();
+
+            Movie = movie;
+            Text = title ?? "Add Movie";
+        }
         private void button2_Click ( object sender, EventArgs e )
         {
             
         }
 
+        //Properties can be virtual if needed but generally does not make sense
         public Movie Movie { get; set; }
+
+        //public virtual void OnLoad ( EventArgs e ) { }
+        //Override indicates to compiler that you are overriding a virtual method
+        protected override void OnLoad ( EventArgs e )
+        {
+            //Call the base member
+            //this.OnLoad(e);
+            base.OnLoad(e);
+
+            if (Movie != null)
+            {
+                _txtName.Text = Movie.Name;
+                _txtDescription.Text = Movie.Description;
+                _comboRating.SelectedText = Movie.Rating;
+                _chkClassic.Checked = Movie.IsClassic;
+                _txtRunLength.Text = Movie.RunLength.ToString();
+                _txtReleaseYear.Text = Movie.ReleaseYear.ToString();
+            };
+        }
 
 
         //Method - function inside a class
