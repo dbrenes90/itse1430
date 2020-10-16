@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent ()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -41,6 +42,8 @@
             this._comboRating = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
             this._txtReleaseYear = new System.Windows.Forms.TextBox();
+            this._errors = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this._errors)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -63,6 +66,7 @@
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(12, 189);
             this.label3.Name = "label3";
@@ -72,6 +76,7 @@
             // 
             // label4
             // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(39, 267);
             this.label4.Name = "label4";
@@ -87,6 +92,7 @@
             this._txtName.Name = "_txtName";
             this._txtName.Size = new System.Drawing.Size(206, 23);
             this._txtName.TabIndex = 0;
+            this._txtName.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateName);
             // 
             // _txtDescription
             // 
@@ -101,13 +107,16 @@
             // 
             // _txtRunLength
             // 
+            this._txtRunLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this._txtRunLength.Location = new System.Drawing.Point(89, 186);
             this._txtRunLength.Name = "_txtRunLength";
             this._txtRunLength.Size = new System.Drawing.Size(43, 23);
             this._txtRunLength.TabIndex = 2;
+            this._txtRunLength.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateRunLength);
             // 
             // _chkClassic
             // 
+            this._chkClassic.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this._chkClassic.AutoSize = true;
             this._chkClassic.Location = new System.Drawing.Point(89, 233);
             this._chkClassic.Name = "_chkClassic";
@@ -118,6 +127,8 @@
             // 
             // _btnCancel
             // 
+            this._btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this._btnCancel.CausesValidation = false;
             this._btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this._btnCancel.Location = new System.Drawing.Point(286, 341);
             this._btnCancel.Name = "_btnCancel";
@@ -129,6 +140,7 @@
             // 
             // _btnSave
             // 
+            this._btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this._btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
             this._btnSave.Location = new System.Drawing.Point(205, 341);
             this._btnSave.Name = "_btnSave";
@@ -140,6 +152,7 @@
             // 
             // _comboRating
             // 
+            this._comboRating.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this._comboRating.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this._comboRating.FormattingEnabled = true;
             this._comboRating.Items.AddRange(new object[] {
@@ -154,6 +167,7 @@
             // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(12, 308);
             this.label5.Name = "label5";
@@ -163,16 +177,24 @@
             // 
             // _txtReleaseYear
             // 
+            this._txtReleaseYear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this._txtReleaseYear.Location = new System.Drawing.Point(89, 305);
             this._txtReleaseYear.Name = "_txtReleaseYear";
             this._txtReleaseYear.Size = new System.Drawing.Size(43, 23);
             this._txtReleaseYear.TabIndex = 5;
             this._txtReleaseYear.Text = "1900";
+            this._txtReleaseYear.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateReleaseYear);
+            // 
+            // _errors
+            // 
+            this._errors.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this._errors.ContainerControl = this;
             // 
             // MovieForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.CancelButton = this._btnCancel;
             this.ClientSize = new System.Drawing.Size(376, 387);
             this.Controls.Add(this._txtReleaseYear);
@@ -195,6 +217,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add Movie";
+            ((System.ComponentModel.ISupportInitialize)(this._errors)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -215,5 +238,6 @@
         private System.Windows.Forms.ComboBox _comboRating;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox _txtReleaseYear;
+        private System.Windows.Forms.ErrorProvider _errors;
     }
 }

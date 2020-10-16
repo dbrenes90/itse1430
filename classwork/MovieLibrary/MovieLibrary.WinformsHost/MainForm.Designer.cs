@@ -38,6 +38,7 @@
             this._miMovieDelete = new System.Windows.Forms.ToolStripMenuItem();
             this._miHelp = new System.Windows.Forms.ToolStripMenuItem();
             this._miHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
+            this.listBox1 = new System.Windows.Forms.ListBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -117,11 +118,22 @@
             this._miHelpAbout.Size = new System.Drawing.Size(126, 22);
             this._miHelpAbout.Text = "&About";
             // 
+            // listBox1
+            // 
+            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 15;
+            this.listBox1.Location = new System.Drawing.Point(0, 24);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(562, 291);
+            this.listBox1.TabIndex = 1;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(562, 315);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
@@ -145,6 +157,7 @@
         private System.Windows.Forms.ToolStripMenuItem _miMovieDelete;
         private System.Windows.Forms.ToolStripMenuItem _miHelp;
         private System.Windows.Forms.ToolStripMenuItem _miHelpAbout;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }
 
