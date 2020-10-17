@@ -4,7 +4,7 @@ namespace CharacterCreator
 {
     public class Character
     {
-        public int Id { get; private set; }
+        public int Id { get;set; }
         public string Name
         {
             get {
@@ -25,7 +25,7 @@ namespace CharacterCreator
                 _profession = value;
             }
         }
-        private string _profession;
+        private string _profession = "";
 
         public string Race
         {
@@ -64,7 +64,7 @@ namespace CharacterCreator
             set;
 
         }
-        private int _strength, _intelligence, _agility, _constitution, _charisma;
+       
 
         public string Description
         {
@@ -89,6 +89,7 @@ namespace CharacterCreator
 
             return null;
         }
+
 
     }
 }

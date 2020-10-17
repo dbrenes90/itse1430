@@ -48,9 +48,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this._btnSave = new System.Windows.Forms.Button();
-            this._btnCancel = new System.Windows.Forms.Button();
             this._errors = new System.Windows.Forms.ErrorProvider(this.components);
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this._numStrength)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._numIntelligence)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._numAgility)).BeginInit();
@@ -233,31 +233,30 @@
             this.label7.TabIndex = 18;
             this.label7.Text = "Charisma";
             // 
-            // _btnSave
-            // 
-            this._btnSave.Location = new System.Drawing.Point(109, 437);
-            this._btnSave.Name = "_btnSave";
-            this._btnSave.Size = new System.Drawing.Size(75, 23);
-            this._btnSave.TabIndex = 9;
-            this._btnSave.Text = "Save";
-            this._btnSave.UseVisualStyleBackColor = true;
-            this._btnSave.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateName);
-            // 
-            // _btnCancel
-            // 
-            this._btnCancel.CausesValidation = false;
-            this._btnCancel.Location = new System.Drawing.Point(190, 437);
-            this._btnCancel.Name = "_btnCancel";
-            this._btnCancel.Size = new System.Drawing.Size(75, 23);
-            this._btnCancel.TabIndex = 10;
-            this._btnCancel.Text = "Cancel";
-            this._btnCancel.UseVisualStyleBackColor = true;
-            this._btnCancel.Validating += new System.ComponentModel.CancelEventHandler(this.OnCancel);
-            // 
             // _errors
             // 
             this._errors.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this._errors.ContainerControl = this;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(94, 437);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 19;
+            this.button1.Text = "Save";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.OnSave);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(186, 437);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 20;
+            this.button2.Text = "Cancel";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.OnCancel);
             // 
             // CharacterForm
             // 
@@ -265,8 +264,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.ClientSize = new System.Drawing.Size(280, 472);
-            this.Controls.Add(this._btnCancel);
-            this.Controls.Add(this._btnSave);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label3);
@@ -326,8 +325,8 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button _btnSave;
-        private System.Windows.Forms.Button _btnCancel;
         private System.Windows.Forms.ErrorProvider _errors;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
     }
 }

@@ -23,7 +23,17 @@ namespace CharacterCreator.Winforms
             _miHelpAbout.Click += OnHelpAbout;
             _miCharacterNew.Click += OnCharacterNew;
             _miCharacterEdit.Click += OnCharacterEdit;
+            _miCharacterDelete.Click += OnCharacterDelete;
         }
+
+        private void OnCharacterDelete ( object sender, EventArgs e )
+        {
+            if (_character == null)
+                return;
+
+
+        }
+
         private Character _character;
        //rivate CharacterDatabase _characters = new CharacterDatabase();
 
@@ -36,36 +46,30 @@ namespace CharacterCreator.Winforms
             roster.Add(_character);
 
             //ASSUMPTION: Control is called _lbRoster for ListBox
-         //_lbRoster.DataSource = roster;
+           _lbRoster.DataSource = roster;
 
             //ASSUMPTION: Property on Character to display is called Name, change to match your code
-         //_lbRoster.DisplayName = "Name";
+           _lbRoster.DisplayMember = "Name";
         }
         private void OnCharacterNew ( object sender, EventArgs e )
         {
             var form = new CharacterForm();
-
-            
+                        
             var result = form.ShowDialog(this); //Blocks until form is dismissed/
             if (result == DialogResult.Cancel)
                 return;
 
-           _character = form.Character;
+            _character = form.Character;
 
             MessageBox.Show("Save successful");
 
-
+            RefreshRoster();
         }
         private void OnCharacterEdit ( object sender, EventArgs e )
         {
             if (_character == null)
                 return;
 
-            //OBject creation
-            // 1. Allocate memory for instance, zero initialized
-            // 2. Initialize fields 
-            // 3. Constructor (finish initialization)
-            // 4. Return new instance
             var form = new CharacterForm(_character, "Edit Character");
             //form.Movie = _movie;
 

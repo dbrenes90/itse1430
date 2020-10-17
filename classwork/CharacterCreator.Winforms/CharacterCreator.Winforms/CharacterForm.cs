@@ -24,9 +24,9 @@ namespace CharacterCreator.Winforms
         public CharacterForm (Character character, string name) : this()
         {
             Character = character;
-            Name = name ?? "Add Character";
+            Text = name ?? "Add Character";
         }
-        public Character Character { get; set; }
+        public virtual Character Character { get; set; }
         protected override void OnLoad ( EventArgs e )
         {
            
@@ -35,68 +35,20 @@ namespace CharacterCreator.Winforms
             if (Character != null)
             {
                 _txtName.Text = Character.Name;
-                _comboProfession.SelectedText = Character.Profession;
-                _comboRace.SelectedText = Character.Race;
+                _comboProfession.SelectedItem = Character.Profession;
+                _comboRace.SelectedItem = Character.Race;
                 _numStrength.Value = Character.Strength;
                 _numIntelligence.Value = Character.Intelligence;
                 _numConstitution.Value = Character.Constitution;
                 _numAgility.Value = Character.Agility;
                 _numCharisma.Value = Character.Charisma;
+                _txtDescription.Text = Character.Description;
             };
 
             // Go ahead and show validation errors
             ValidateChildren();
         }
-        private void OnSave ( object sender, CancelEventArgs e )
-        {
-            if (!ValidateChildren())
-            {
-                DialogResult = DialogResult.None;
-                return;
-            }
-
-            var button = sender as Button;
-            if (button == null)
-                return;
-
-            var character = new Character();
-
-            character.Name = _txtName.Text;
-
-            var profession = _comboProfession.SelectedItem as Character;
-            if (profession != null)
-                character.Profession = profession.ToString();
-            //character.Profession = _comboProfession.SelectedText;
-            var race = _comboRace.SelectedItem as Character;
-            if (race != null)
-                character.Race = race.ToString();
-            //character.Race = _comboRace.SelectedText;
-            character.Strength = (int)_numStrength.Value;
-            character.Intelligence = (int)_numIntelligence.Value;
-            character.Agility = (int)_numAgility.Value;
-            character.Constitution = (int)_numConstitution.Value;
-            character.Charisma = (int)_numCharisma.Value;
-            character.Description = _txtDescription.Text;
-
-            var error = character.Validate();
-            if (!String.IsNullOrEmpty(error))
-            {
-                //Show error message - use for standard messages
-                MessageBox.Show(this, error, "Save Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                DialogResult = DialogResult.None;
-                Close();
-                return;
-            }
-
-            Character = character;
-            Close();
-        }
-
-        private void OnCancel ( object sender, CancelEventArgs e )
-        {
-            Close();
-        }
-
+       
         private void OnValidateName ( object sender, CancelEventArgs e )
         {
             
@@ -133,6 +85,59 @@ namespace CharacterCreator.Winforms
                 e.Cancel = true;
             } else
                 _errors.SetError(control, "");
+        }
+
+        private void OnSave ( object sender, EventArgs e )
+        {
+           
+            
+                if (!ValidateChildren())
+                {
+                    DialogResult = DialogResult.None;
+                    return;
+                };
+
+                var button = sender as Button;
+                if (button == null)
+                    return;
+
+                var character = new Character();
+
+                character.Name = _txtName.Text;
+
+                var item = _comboProfession.SelectedItem as Character;
+             
+                character.Profession = (string)_comboProfession.SelectedItem;
+                var race = _comboRace.SelectedItem as Character;
+                //if (race != null)
+                  //  character.Race = race.ToString();
+                character.Race = (string)_comboRace.SelectedItem;
+                character.Strength = (int)_numStrength.Value;
+                character.Intelligence = (int)_numIntelligence.Value;
+                character.Agility = (int)_numAgility.Value;
+                character.Constitution = (int)_numConstitution.Value;
+                character.Charisma = (int)_numCharisma.Value;
+                character.Description = _txtDescription.Text;
+
+                //MessageBox.Show(this, Character.Profession);
+                var error = character.Validate();
+                if (!String.IsNullOrEmpty(error))
+                {
+                    //Show error message - use for standard messages
+                    MessageBox.Show(this, error, "Save Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DialogResult = DialogResult.None;
+                    Close();
+                    return;
+                }
+
+                Character = character;
+                
+                Close();
+        }
+
+        private void OnCancel ( object sender, EventArgs e )
+        {
+            Close();
         }
     }
 }
