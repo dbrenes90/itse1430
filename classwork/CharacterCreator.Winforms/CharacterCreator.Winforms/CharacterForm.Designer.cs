@@ -241,7 +241,7 @@
             this._btnSave.TabIndex = 9;
             this._btnSave.Text = "Save";
             this._btnSave.UseVisualStyleBackColor = true;
-            this._btnSave.Validating += new System.ComponentModel.CancelEventHandler(this.OnSave);
+            this._btnSave.Validating += new System.ComponentModel.CancelEventHandler(this.OnValidateName);
             // 
             // _btnCancel
             // 

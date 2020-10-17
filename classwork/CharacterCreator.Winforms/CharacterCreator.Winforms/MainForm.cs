@@ -22,8 +22,9 @@ namespace CharacterCreator.Winforms
             _miFileExit.Click += OnExit;
             _miHelpAbout.Click += OnHelpAbout;
             _miCharacterNew.Click += OnCharacterNew;
+            _miCharacterEdit.Click += OnCharacterEdit;
         }
-
+        private Character _character;
         private void OnCharacterNew ( object sender, EventArgs e )
         {
             var form = new CharacterForm();
@@ -38,6 +39,30 @@ namespace CharacterCreator.Winforms
             // After form is gone
             // TODO: Save movie
             //_movie = form.Movie;
+
+            MessageBox.Show("Save successful");
+
+
+        }
+        private void OnCharacterEdit ( object sender, EventArgs e )
+        {
+            if (_character == null)
+                return;
+
+            //OBject creation
+            // 1. Allocate memory for instance, zero initialized
+            // 2. Initialize fields 
+            // 3. Constructor (finish initialization)
+            // 4. Return new instance
+            var form = new CharacterForm(_character, "Edit Character");
+            //form.Movie = _movie;
+
+            var result = form.ShowDialog(this); //Blocks until form is dismissed
+            if (result == DialogResult.Cancel)
+                return;
+
+            // TODO: Update movie
+            _character = form.Character;
 
             MessageBox.Show("Save successful");
 

@@ -15,6 +15,16 @@ namespace CharacterCreator.Winforms
             InitializeComponent();
         }
 
+        public CharacterForm( Character character) :this(character, null)
+        {
+
+        }
+
+        public CharacterForm (Character character, string name) : this()
+        {
+            Character = character;
+            Name = name ?? "Add Character";
+        }
         public Character Character { get; set; }
         private void OnSave ( object sender, CancelEventArgs e )
         {
@@ -31,6 +41,7 @@ namespace CharacterCreator.Winforms
             var character = new Character();
 
             character.Name = _txtName.Text;
+
             var profession = _comboProfession.SelectedItem as Character;
             if (profession != null)
                 character.Profession = profession.ToString();

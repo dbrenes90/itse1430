@@ -4,6 +4,7 @@ namespace CharacterCreator
 {
     public class Character
     {
+        public int Id { get; private set; }
         public string Name
         {
             get {
@@ -73,6 +74,15 @@ namespace CharacterCreator
 
         public string Validate ()
         {
+            if (String.IsNullOrEmpty(Name))
+                return "Name is required";
+
+            if (String.IsNullOrEmpty(Profession))
+                return "Profession is required";
+
+            if (String.IsNullOrEmpty(Race))
+                return "Race is required";
+
             return null;
         }
 

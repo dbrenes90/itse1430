@@ -33,6 +33,7 @@
             this._miFileExit = new System.Windows.Forms.ToolStripMenuItem();
             this._miCharacter = new System.Windows.Forms.ToolStripMenuItem();
             this._miCharacterNew = new System.Windows.Forms.ToolStripMenuItem();
+            this._miCharacterEdit = new System.Windows.Forms.ToolStripMenuItem();
             this._miHelp = new System.Windows.Forms.ToolStripMenuItem();
             this._miHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.listBox1 = new System.Windows.Forms.ListBox();
@@ -69,7 +70,8 @@
             // _miCharacter
             // 
             this._miCharacter.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this._miCharacterNew});
+            this._miCharacterNew,
+            this._miCharacterEdit});
             this._miCharacter.Name = "_miCharacter";
             this._miCharacter.Size = new System.Drawing.Size(70, 20);
             this._miCharacter.Text = "Character";
@@ -80,6 +82,13 @@
             this._miCharacterNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this._miCharacterNew.Size = new System.Drawing.Size(141, 22);
             this._miCharacterNew.Text = "New";
+            // 
+            // _miCharacterEdit
+            // 
+            this._miCharacterEdit.Name = "_miCharacterEdit";
+            this._miCharacterEdit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D0)));
+            this._miCharacterEdit.Size = new System.Drawing.Size(141, 22);
+            this._miCharacterEdit.Text = "Edit";
             // 
             // _miHelp
             // 
@@ -135,6 +144,7 @@
         private System.Windows.Forms.ToolStripMenuItem _miHelpAbout;
         private System.Windows.Forms.ToolStripMenuItem _miCharacterNew;
         private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ToolStripMenuItem _miCharacterEdit;
     }
 }
 
