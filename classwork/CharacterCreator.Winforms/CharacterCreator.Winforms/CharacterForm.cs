@@ -10,6 +10,7 @@ namespace CharacterCreator.Winforms
 {
     public partial class CharacterForm : Form
     {
+       
         public CharacterForm ()
         {
             InitializeComponent();
@@ -26,6 +27,26 @@ namespace CharacterCreator.Winforms
             Name = name ?? "Add Character";
         }
         public Character Character { get; set; }
+        protected override void OnLoad ( EventArgs e )
+        {
+           
+            base.OnLoad(e);
+
+            if (Character != null)
+            {
+                _txtName.Text = Character.Name;
+                _comboProfession.SelectedText = Character.Profession;
+                _comboRace.SelectedText = Character.Race;
+                _numStrength.Value = Character.Strength;
+                _numIntelligence.Value = Character.Intelligence;
+                _numConstitution.Value = Character.Constitution;
+                _numAgility.Value = Character.Agility;
+                _numCharisma.Value = Character.Charisma;
+            };
+
+            // Go ahead and show validation errors
+            ValidateChildren();
+        }
         private void OnSave ( object sender, CancelEventArgs e )
         {
             if (!ValidateChildren())

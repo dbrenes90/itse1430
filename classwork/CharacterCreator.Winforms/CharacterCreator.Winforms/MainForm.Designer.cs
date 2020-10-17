@@ -34,6 +34,7 @@
             this._miCharacter = new System.Windows.Forms.ToolStripMenuItem();
             this._miCharacterNew = new System.Windows.Forms.ToolStripMenuItem();
             this._miCharacterEdit = new System.Windows.Forms.ToolStripMenuItem();
+            this._miCharacterDelete = new System.Windows.Forms.ToolStripMenuItem();
             this._miHelp = new System.Windows.Forms.ToolStripMenuItem();
             this._miHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.listBox1 = new System.Windows.Forms.ListBox();
@@ -71,7 +72,8 @@
             // 
             this._miCharacter.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._miCharacterNew,
-            this._miCharacterEdit});
+            this._miCharacterEdit,
+            this._miCharacterDelete});
             this._miCharacter.Name = "_miCharacter";
             this._miCharacter.Size = new System.Drawing.Size(70, 20);
             this._miCharacter.Text = "Character";
@@ -90,6 +92,13 @@
             this._miCharacterEdit.Size = new System.Drawing.Size(141, 22);
             this._miCharacterEdit.Text = "Edit";
             // 
+            // _miCharacterDelete
+            // 
+            this._miCharacterDelete.Name = "_miCharacterDelete";
+            this._miCharacterDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this._miCharacterDelete.Size = new System.Drawing.Size(141, 22);
+            this._miCharacterDelete.Text = "Delete";
+            // 
             // _miHelp
             // 
             this._miHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -107,6 +116,7 @@
             // 
             // listBox1
             // 
+            this.listBox1.DisplayMember = "Character.name";
             this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 15;
@@ -145,6 +155,7 @@
         private System.Windows.Forms.ToolStripMenuItem _miCharacterNew;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.ToolStripMenuItem _miCharacterEdit;
+        private System.Windows.Forms.ToolStripMenuItem _miCharacterDelete;
     }
 }
 

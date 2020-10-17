@@ -25,20 +25,32 @@ namespace CharacterCreator.Winforms
             _miCharacterEdit.Click += OnCharacterEdit;
         }
         private Character _character;
+       //rivate CharacterDatabase _characters = new CharacterDatabase();
+
+        private void RefreshRoster ()
+        {
+            //ASSUMPTION: Character is the type that represents a character, change to match your code
+            var roster = new BindingList<Character>();
+
+            //ASSUMPTION: _character is the field where the single character is stored, change to match your code
+            roster.Add(_character);
+
+            //ASSUMPTION: Control is called _lbRoster for ListBox
+         //_lbRoster.DataSource = roster;
+
+            //ASSUMPTION: Property on Character to display is called Name, change to match your code
+         //_lbRoster.DisplayName = "Name";
+        }
         private void OnCharacterNew ( object sender, EventArgs e )
         {
             var form = new CharacterForm();
 
-            // Can show two different ways
-            // ShowDialog - modal :: user must interact with child form, cannot access parent
-            // Show - modeless :: multiples windows open and accessible at the same time
+            
             var result = form.ShowDialog(this); //Blocks until form is dismissed/
             if (result == DialogResult.Cancel)
                 return;
 
-            // After form is gone
-            // TODO: Save movie
-            //_movie = form.Movie;
+           _character = form.Character;
 
             MessageBox.Show("Save successful");
 

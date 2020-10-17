@@ -245,6 +245,7 @@
             // 
             // _btnCancel
             // 
+            this._btnCancel.CausesValidation = false;
             this._btnCancel.Location = new System.Drawing.Point(190, 437);
             this._btnCancel.Name = "_btnCancel";
             this._btnCancel.Size = new System.Drawing.Size(75, 23);
