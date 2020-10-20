@@ -54,7 +54,37 @@ namespace MovieLibrary.WinformsHost
         }
 
         //Event - a notification to interested parties that something has happened (decoupling mechanism)
-        private Movie _movie;
+        private Movie[] _movies;
+
+        private void AddMovie ( Movie movie)
+        {
+            MessageBox.Show("Not implemented yet");
+
+        }
+        private void DeleteMovie ( Movie movie )
+        {
+            MessageBox.Show("Not implemented yet");
+
+        }
+        private void EditMovie ( Movie movie )
+        {
+            MessageBox.Show("Not implemented yet");
+
+        }
+
+        private Movie GetSelectedMovie()
+        {
+            return null;
+        }
+        private void RefreshUI ()
+        {
+            _lstMovies.DisplayMember = nameof(Movie.Name); //nameof provides type equivalent of the member name ("Name")
+
+            _lstMovies.DataSource = null;
+            _lstMovies.DataSource = _movies;
+            
+
+        }
         private void OnMovieAdd ( object sender, EventArgs e)
         {
             var form = new MovieForm();
@@ -66,19 +96,15 @@ namespace MovieLibrary.WinformsHost
             if (result == DialogResult.Cancel)
                 return;
 
-            // After form is gone
-            // TODO: Save movie
-            _movie = form.Movie;
-
-            MessageBox.Show("Save successful");
-
-         
+            // Save movie
+            //_movie = form.Movie;
+            AddMovie(form.Movie);                       
         }
         
         private void OnMovieDelete ( object sender, EventArgs e )
         {
-            //TODO: Verify movie exists
-            if (_movie == null)
+            var movie = GetSelectedMovie();
+            if (movie == null)
                 return;
 
             // DialogResult 
@@ -90,20 +116,22 @@ namespace MovieLibrary.WinformsHost
             }
 
             //TODO: Delete movie
-            _movie = null;
+            DeleteMovie(movie);
         }
 
         private void OnMovieEdit ( object sender, EventArgs e )
         {
-            if (_movie == null)
+            var movie = GetSelectedMovie();
+            if (movie == null)
                 return;
-
+          
             //OBject creation
             // 1. Allocate memory for instance, zero initialized
             // 2. Initialize fields 
             // 3. Constructor (finish initialization)
             // 4. Return new instance
-            var form = new MovieForm(_movie, "Edit Movie");
+            var form = new MovieForm(movie, "Edit Movie");
+
             //form.Movie = _movie;
 
             var result = form.ShowDialog(this); //Blocks until form is dismissed
@@ -111,9 +139,9 @@ namespace MovieLibrary.WinformsHost
                 return;
 
             // TODO: Update movie
-            _movie = form.Movie;
+            EditMovie(form.Movie);
 
-            MessageBox.Show("Save successful");
+            
 
 
         }

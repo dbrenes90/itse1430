@@ -11,6 +11,7 @@ namespace MovieLibrary.WinformsHost
     // class - declaration ::= {access} {modifiers} class identiefier { : T}
     public partial class MovieForm : Form
     {
+        #region constructors
         //Access:
         // Public - accessible in derived type
         // Protected - accessible in owning type and derived types
@@ -41,10 +42,7 @@ namespace MovieLibrary.WinformsHost
             Movie = movie;
             Text = title ?? "Add Movie";
         }
-        private void button2_Click ( object sender, EventArgs e )
-        {
-            
-        }
+        #endregion
 
         //Properties can be virtual if needed but generally does not make sense
         public Movie Movie { get; set; }
@@ -143,6 +141,65 @@ namespace MovieLibrary.WinformsHost
             return -1;
         }
 
+        private void PlayWithObjects ( object value)
+        {
+            //Common Type System (CTS) - there is 1 base type from which all other types derive
+            // System.Object =>? object
+            //   string ToString () ::= converts a value to a string (all types have this method)
+            //   bool Equals ( object ) ::= determines if the current instance equals another value // do not override this method
+            //   in GetHashCode () ::= Returns an integral value representing the object
+
+            var str = 10.ToString(); //"10";//virtual method (can be overriden)
+            var form = new Form();
+            form.ToString(); // System.Windows.Forms.Form (full name)
+
+            //Type checking or casting 
+            // 1. C-Style cast ::= (Type) Expression
+            //     Runtime attempts to convert value to Type and if successful reutnrs value as T else crashes
+            //     Must be compile time validated   
+            string stringValue = (string)value;
+
+            //2. as-operator ::= Expression as Type
+            // runtime attempts to convert value to Type and if successful returns value as T else returns null (preferred method)
+            stringValue = value as string;
+            if (stringValue != null)
+           { /* dealing with string */}
+
+            // 3. is-operator ::= Expression is Type
+            //   Runtime verifies value is of the given Type and returns true if successful or false otherwise
+            var isString = value is string;   // true 
+            if (isString)
+            {
+                stringValue = (string)value;
+            }
+
+            // 4. pattern-mathing ::= Expression is Type identifier
+            //     Runtime attempts to convert E to T and if successful stores in identifier else stores default (T)
+            if (value is string sValue)
+            {
+                //string svalue = value as string
+                // if (svalue != null)
+            }
+
+            // Dealing with null
+            //    1. Let it fail instance.ToString() // errors if null
+            //    2. null-coalesce-operator ::= E1 ?? E2
+            //              If E1 is NOT null return E1 else return E2
+            stringValue = stringValue ?? "";
+
+            //    3. null-conditional-operator ::=E?.M
+            //         E is an instance, M is any member; if E is not null then call M else skip it
+            //         .ToString() => string
+            //        ?.ToString() => string | null
+            stringValue = stringValue?.ToString() ?? "";
+            // if (stringValue != null)
+            //      var temp = stringValue.ToString()
+            //      if (temp != null ) return ""
+            //  return ""
+
+            //    4. null reference types
+                       
+        }
         private void OnValidateName ( object sender, CancelEventArgs e )
         {
             var control = sender as TextBox; // Textbox control = sender as TextBox;
