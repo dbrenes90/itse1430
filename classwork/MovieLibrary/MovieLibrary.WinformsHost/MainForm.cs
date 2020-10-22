@@ -46,6 +46,12 @@ namespace MovieLibrary.WinformsHost
             _miHelpAbout.Click += OnHelpAbout;
         }
 
+        protected override void OnLoad ( EventArgs e)
+        {
+            base.OnLoad(e);
+
+            RefreshUI();
+        }
         private void OnHelpAbout ( object sender, EventArgs e )
         {
             var about = new AboutBox();
@@ -64,30 +70,39 @@ namespace MovieLibrary.WinformsHost
 
         private void AddMovie ( Movie movie)
         {
+            var newMovie = _movies.Add(movie, out var message);
+            if (newMovie == null)
+            {
+                MessageBox.Show(this, message, "Add Failed", MessageBoxButtons.OK);
+                return;
+            }
+
+            RefreshUI();
             //Find first empty spot in array
             // for ( Ei; EC; EU) S ;
             //     EI::= initializer expression (runs once before loop executes)
             //     EC::= conditional expresssion => boolean (executes before loop statement is run, aborts if condition is false)
             //     EU::= update expression ( runs at end of current iteration)
             // Length -> int (# of rows in the array)
-            for (var index = 0; index<_movies.Length; ++index)
-            {
+            //for (var index = 0; index<_movies.Length; ++index)
+           // {
                 // Array element access ::= V{int}
-                if (_movies[index] == null)
-                {
-                    _movies[index] = movie;   // Movie is a ref type thus movie and _movies[index] reference the same instance
-                    return;
+            //    if (_movies[index] == null)
+             //   {
+            //        _movies[index] = movie;   // Movie is a ref type thus movie and _movies[index] reference the same instance
+             //       return;
                        // Add movie to array
-                }
-            };
+             //   }
+          //  };
 
-            MessageBox.Show(this, "No more room for movies", "Add Failed", MessageBoxButtons.OK);
+           // MessageBox.Show(this, "No more room for movies", "Add Failed", MessageBoxButtons.OK);
                 
 
         }
         private void DeleteMovie ( int id )
         {
-            for (var index = 0; index<_movies.Length; ++index)
+            _movies.Delete(id);
+           /*for (var index = 0; index<_movies.Length; ++index)
             {
                 // Array element access ::= V{int}
                 //if (_movies[index] != null && _movies[index].Id == id )
@@ -97,12 +112,18 @@ namespace MovieLibrary.WinformsHost
                     return;
                     // Add movie to array
                 }
-            };
+            };*/
 
         }
         private void EditMovie (int id, Movie movie )
         {
-            for (var index = 0; index<_movies.Length; ++index)
+            var error = _movies.Update(id, movie);
+            if (String.IsNullOrEmpty(error))
+            {
+                RefreshUI();
+                return;
+            };
+            /*for (var index = 0; index<_movies.Length; ++index)
             {
                 // Array element access ::= V{int}
                 //if (_movies[index] != null && _movies[index].Id == id )
@@ -114,7 +135,7 @@ namespace MovieLibrary.WinformsHost
                     return;
                     // Add movie to array
                 }
-            };
+            };*/
 
             MessageBox.Show(this, "Cannot find movie", "Edit Movie", MessageBoxButtons.OK);
         }
@@ -129,7 +150,7 @@ namespace MovieLibrary.WinformsHost
             //_lstMovies.DisplayMember = nameof(Movie.Name); //nameof provides type equivalent of the member name ("Name")
 
             _lstMovies.DataSource = null;
-            _lstMovies.DataSource = _movies;
+            _lstMovies.DataSource = _movies.GetAll();
             
 
         }
@@ -147,7 +168,7 @@ namespace MovieLibrary.WinformsHost
             // Save movie
             //_movie = form.Movie;
             AddMovie(form.Movie);
-            RefreshUI();
+           
         }
         
         private void OnMovieDelete ( object sender, EventArgs e )
@@ -190,7 +211,7 @@ namespace MovieLibrary.WinformsHost
 
             // TODO: Update movie
             EditMovie(movie.Id, form.Movie);
-            RefreshUI();
+            
         }
 
     }
