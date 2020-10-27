@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MovieLibrary
 {
-    public class MovieDatabase
+    public class MovieDatabase : IMovieDatabase
     {
         //Default constructor to seed database
         public MovieDatabase ()
@@ -23,7 +23,7 @@ namespace MovieLibrary
             //         Description = "blah",
             //         FullDescription = Description
 
-            //Collection initializer syntax
+            //Collection initializer syntax. compiler can infer the type based on the types in the initializer (only arrays)
             var items = new[] { //new Movie[] {
                 new Movie() {
                     Name = "Jaws",
@@ -55,6 +55,12 @@ namespace MovieLibrary
 
 
         }
+        //Not on interface
+        public void Foo()
+        {
+
+        }
+
         //Array - Type[]
         //public Movie[] Items { get; set; }
         public Movie Add ( Movie movie, out string error )
@@ -83,7 +89,7 @@ namespace MovieLibrary
             return movie;
 
             //TODO: No more room
-           // error = "No more room";
+            // error = "No more room";
             //return null;
 
 
@@ -96,44 +102,44 @@ namespace MovieLibrary
             {
                 //mus tus the same instance that is stored in the list so ref equality works
                 _movies.Remove(movie);
-            };  
-           /* foreach (var movie in _movies)
-            {
-                if (movie.Id==id)
-                {
-                    //Must use the same instance that is stored in the list so ref equality works
-                    _movies.Remove(movie);
-                    return;
-                };
-            };*/ 
+            };
+            /* foreach (var movie in _movies)
+             {
+                 if (movie.Id==id)
+                 {
+                     //Must use the same instance that is stored in the list so ref equality works
+                     _movies.Remove(movie);
+                     return;
+                 };
+             };*/
             //TODO: Validate Id
             //for (var index = 0; index<_movies.Count; ++index)
-           // {
-                //_movies.Remove();
-                // Array element access ::= V{int}
-                //if (_movies[index] != null && _movies[index].Id == id )
-               // if (_movies[index]?.Id == id) // null conditional ?. if instance != null, access the member otherwise skip
-              //  {
-              //      _movies[index] = null;   // Movie is a ref type thus movie and _movies[index] reference the same instance
-               //     return;
-                    
-             //   };
-           // };
+            // {
+            //_movies.Remove();
+            // Array element access ::= V{int}
+            //if (_movies[index] != null && _movies[index].Id == id )
+            // if (_movies[index]?.Id == id) // null conditional ?. if instance != null, access the member otherwise skip
+            //  {
+            //      _movies[index] = null;   // Movie is a ref type thus movie and _movies[index] reference the same instance
+            //     return;
+
+            //   };
+            // };
 
         }
-        public Movie[] GetAll()
+        public Movie[] GetAll ()
         {
             //DONT DO THIS
             //  1. Expose underlying movie items
             //  2. Callers add/remove movies
             //return _movies;
 
-            //TODO: Determine who many movies we're storing
+            //TODO: Determine how many movies we're storing
             //For each one create a cloned copy
             // return _movies;
             var items = new Movie[_movies.Count];
             var index = 0;
-            foreach (var movie in _movies)
+            foreach (var movie in _movies) // relies on IEnumerator<T>
                 items[index++] = CloneMovie(movie);
 
             return items;
@@ -168,7 +174,7 @@ namespace MovieLibrary
         {
             //TODO: Validate Id
             // Movie exists
-            
+
             var existing = GetById(id);
             if (existing == null)
                 return "Movie not found";
@@ -178,23 +184,23 @@ namespace MovieLibrary
 
             CopyMovie(existing, movie);
 
-           /* for (var index = 0; index<_movies.Length; ++index)
-            {
-                // Array element access ::= V{int}
-                //if (_movies[index] != null && _movies[index].Id == id )
-                if (_movies[index]?.Id == id) // null conditional ?. if instance != null, access the member otherwise skip
-                {
+            /* for (var index = 0; index<_movies.Length; ++index)
+             {
+                 // Array element access ::= V{int}
+                 //if (_movies[index] != null && _movies[index].Id == id )
+                 if (_movies[index]?.Id == id) // null conditional ?. if instance != null, access the member otherwise skip
+                 {
 
-                    //Just because we are doing this in memory (reference type)
-                    movie.Id = id;
-                    _movies[index] = movie;   // Movie is a ref type thus movie and _movies[index] reference the same instance
-                    return "";
-                    // Add movie to array
-                }
-            };*/
+                     //Just because we are doing this in memory (reference type)
+                     movie.Id = id;
+                     _movies[index] = movie;   // Movie is a ref type thus movie and _movies[index] reference the same instance
+                     return "";
+                     // Add movie to array
+                 }
+             };*/
 
             return "";
-           
+
         }
         private void CopyMovie ( Movie target, Movie source )
         {
@@ -207,14 +213,14 @@ namespace MovieLibrary
             target.IsClassic = source.IsClassic;
             target.Description = source.Description;
         }
-        private Movie CloneMovie ( Movie movie)
+        private Movie CloneMovie ( Movie movie )
         {
             var item = new Movie();
             item.Id = movie.Id;
             CopyMovie(item, movie);
-           
-            
-            
+
+
+
 
             return item;
 
@@ -222,8 +228,8 @@ namespace MovieLibrary
 
         //Only store cloned copies of movies here!!
         //private Movie[] _movies = new Movie[100];
-        private List<Movie> _movies = new List<Movie>(); // Generic list of Movies (dynamically resizable array (storing set of items, number of items not know))
-        //private Collection<Movie> _temp;       // Pubnlic read-writeable lists    must add using System.Collections.ObjectModel;
+        private List<Movie> _movies = new List<Movie>(); // Generic list of Movies (dynamically resizable array (storing set of items, number of items not known))
+        //private Collection<Movie> _temp;       // Public read-writeable lists    must add using System.Collections.ObjectModel;
         private int _id = 1;
 
         //Non-generic 
