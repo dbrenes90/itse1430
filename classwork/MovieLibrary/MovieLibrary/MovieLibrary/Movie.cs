@@ -7,6 +7,8 @@
 //StringBuilder, Regular expressions, Encoding will use System.Text;
 //using System.Text;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace MovieLibrary
 {
@@ -25,7 +27,7 @@ namespace MovieLibrary
     /// Certain rules that we need to follow should be documented
     /// </remarks>
 
-    public class Movie
+    public class Movie : IValidatableObject
     {
 
         // Data -  data to store
@@ -196,6 +198,11 @@ namespace MovieLibrary
         public override string ToString ()
         {
             return Name;
+        }
+
+        public IEnumerable<ValidationResult> Validate ( ValidationContext validationContext )
+        {
+            throw new NotImplementedException();
         }
     }
     // Accessibility - the visibility of an identifier to other code, compile time only, determines who can see what at compilation

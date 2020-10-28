@@ -56,10 +56,7 @@ namespace MovieLibrary
 
         }
         //Not on interface
-        public void Foo()
-        {
-
-        }
+        public void Foo(){}
 
         //Array - Type[]
         //public Movie[] Items { get; set; }
@@ -127,7 +124,9 @@ namespace MovieLibrary
             // };
 
         }
-        public Movie[] GetAll ()
+        //Use IEnumerable<T> for readonly lists of items
+        // public Movie[] GetAll()
+        public IEnumerable<Movie> GetAll ()
         {
             //DONT DO THIS
             //  1. Expose underlying movie items
@@ -139,10 +138,19 @@ namespace MovieLibrary
             // return _movies;
             var items = new Movie[_movies.Count];
             var index = 0;
-            foreach (var movie in _movies) // relies on IEnumerator<T>
-                items[index++] = CloneMovie(movie);
 
-            return items;
+            //Foreach equivalent
+            // var enumerator = _movies.GetEnumerator();
+            // while (enumerator.Next())
+            // {S* }
+
+            //iterator IEnumerable<T>
+            // yield return T
+            foreach (var movie in _movies) // relies on IEnumerator<T>
+                                           // items[index++] = CloneMovie(movie);
+                yield return CloneMovie(movie);
+                ;
+            //return items;
         }
 
         public Movie Get ( int id )
