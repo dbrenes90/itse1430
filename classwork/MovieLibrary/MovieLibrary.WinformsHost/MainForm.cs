@@ -1,4 +1,5 @@
 ﻿using System; // DO NOT DELETE
+using System.Linq;
 using System.Windows.Forms;
 
 //Hierarchical namespaces
@@ -65,8 +66,10 @@ namespace MovieLibrary.WinformsHost
         //  Instantiate ::= new Type[integer expression] (no fixed size)
         //  Index : 0 to Size -1
         // private Movie[] _movies = new Movie[100]; //0.99
+
         private IMovieDatabase _movies = new MovieDatabase();
-       // private Movie[] _emptyMovies = new Movie[0]; // empty arrays and nulls to be equivalent so always use empty array instead of null
+       
+        // private Movie[] _emptyMovies = new Movie[0]; // empty arrays and nulls to be equivalent so always use empty array instead of null
 
         private void AddMovie ( Movie movie)
         {
@@ -138,7 +141,7 @@ namespace MovieLibrary.WinformsHost
                 }
             };*/
 
-            MessageBox.Show(this, "Cannot find movie", "Edit Movie", MessageBoxButtons.OK);
+            MessageBox.Show(this, /*"Cannot find movie"*/error, "Edit Movie", MessageBoxButtons.OK);
         }
 
         private Movie GetSelectedMovie()
@@ -149,9 +152,11 @@ namespace MovieLibrary.WinformsHost
         private void RefreshUI ()
         {
             //_lstMovies.DisplayMember = nameof(Movie.Name); //nameof provides type equivalent of the member name ("Name")
+           
+            _lstMovies.DataSource = _movies.GetAll().ToArray();
+           //  _lstMovies.DataSource = null;
+            // _lstMovies.DataSource = _movies.GetAll();
 
-            _lstMovies.DataSource = null;
-            _lstMovies.DataSource = _movies.GetAll();
             
 
         }

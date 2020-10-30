@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -115,16 +117,35 @@ namespace MovieLibrary.WinformsHost
             // Won't compile
             // movie.Age = 10; because no set (not writeable only readable)
 
-            //TODO: Fix validation
-            var error = movie.Validate();
-            if (!String.IsNullOrEmpty(error))
+            //Validate: TODO: Fix type validate
+            var validationResults = new ObjectValidator().TryValidateFullObject(movie);
+                    
+            if (validationResults.Count() > 0)
             {
-                //Show error message - use for standard messages
-                MessageBox.Show(this, error, "Save Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //TODO: Fix this later using String.Join
+                var builder = new System.Text.StringBuilder();
+                foreach (var result in validationResults)
+                {
+                    builder.AppendLine(result.ErrorMessage);
+                };
+
+                //Show error messasge
+                MessageBox.Show(this, builder.ToString(), "Save Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 DialogResult = DialogResult.None;
-                Close();
+
                 return;
-            }
+            };
+                //var error = movie.Validate();
+                //if (!String.IsNullOrEmpty(error))
+                //{
+                  //  //Show error message - use for standard messages
+                    //MessageBox.Show(this, error, "Save Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //DialogResult = DialogResult.None;
+                    ////Close();
+                    //return;
+                //};
+            
+
 
             //TODO: Return Movie
             Movie = movie;

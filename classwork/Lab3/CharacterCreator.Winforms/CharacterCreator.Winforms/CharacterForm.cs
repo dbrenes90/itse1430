@@ -1,4 +1,10 @@
-﻿using System;
+﻿/* Daniel Brenes
+ * Lab 3 ITSE 1430
+ * Character Creator
+ * Character Database
+ * 10/30/2020
+ */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +21,19 @@ namespace CharacterCreator.Winforms
         {
             InitializeComponent();
         }
+        public CharacterForm ( Character character) : this(character, null)
+        {
+            //Movie = movie; 
+        }
+
+        //Constructor chaining - calling one constructor from another
+        public CharacterForm ( Character character, string title ) : this()
+        {
+            //InitializeComponent();
+
+            Character = character;
+            Text = title ?? "Add Character";
+        }
         public Character Character { get; set; }
         protected override void OnLoad ( EventArgs e )
         {
@@ -24,8 +43,8 @@ namespace CharacterCreator.Winforms
             if (Character != null)
             {
                 _txtName.Text = Character.Name;
-                _comboProfession.SelectedItem = Character.Profession;
-                _comboRace.SelectedItem = Character.Race;
+                _comboProfession.SelectedText = Character.Profession;
+                _comboRace.SelectedText = Character.Race;
                 _numStrength.Value = Character.Strength;
                 _numIntelligence.Value = Character.Intelligence;
                 _numConstitution.Value = Character.Constitution;
@@ -109,15 +128,15 @@ namespace CharacterCreator.Winforms
                 character.Description = _txtDescription.Text;
 
                 //MessageBox.Show(this, Character.Profession);
-                var error = character.Validate();
-                if (!String.IsNullOrEmpty(error))
-                {
+                var error = character.Validate(); // Code runs to this when set to breakpoint. How to save form to List Array?
+               // if (!String.IsNullOrEmpty(error))
+               // {
                     //Show error message - use for standard messages
-                    MessageBox.Show(this, error, "Save Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    DialogResult = DialogResult.None;
-                    Close();
-                    return;
-                }
+                  //  MessageBox.Show(this, error, "Save Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                 //   DialogResult = DialogResult.None;
+                  //  Close();
+                  //  return;
+              //  }
 
                 Character = character;
                 
