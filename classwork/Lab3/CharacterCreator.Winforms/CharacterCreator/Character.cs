@@ -5,12 +5,14 @@
  * 10/30/2020
  */
 using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CharacterCreator
 {
-    public class Character
+    public class Character : IValidatableObject
     {
-        public int Id { get;set; }
+        public int Id { get; set; }
         public string Name
         {
             get {
@@ -42,7 +44,7 @@ namespace CharacterCreator
                 _race = value;
             }
         }
-        private string _race;
+        private string _race = "";
 
         public int Strength
         {
@@ -70,7 +72,7 @@ namespace CharacterCreator
             set;
 
         }
-       
+
 
         public string Description
         {
@@ -82,20 +84,32 @@ namespace CharacterCreator
             return Name;
         }
 
-        public string Validate ()
+        public IEnumerable<ValidationResult> Validate ( ValidationContext validationContext )
         {
+
             if (String.IsNullOrEmpty(Name))
-                return "Name is required";
+                yield return new ValidationResult("Name of character is required", new[] { nameof(Name) });
 
             if (String.IsNullOrEmpty(Profession))
-                return "Profession is required";
+                yield return new ValidationResult("Profession is required", new[] { nameof(Profession) });
 
             if (String.IsNullOrEmpty(Race))
-                return "Race is required";
+                yield return new ValidationResult("Race is required", new[] { nameof(Race) });
 
-            return null;
+            if (Constitution < 50)
+                yield return new ValidationResult("Constitution must be 50 or greater", new[] { nameof(Name) });
+
+            if (Charisma < 50)
+                yield return new ValidationResult("Charisma must be 50 or greater", new[] { nameof(Name) });
+
+            if (Agility < 50)
+                yield return new ValidationResult("Agility must be 50 or greater", new[] { nameof(Name) });
+
+            if (Strength < 50)
+                yield return new ValidationResult("Strength must be 50 or greater", new[] { nameof(Name) });
+
+            if (Intelligence < 50)
+                yield return new ValidationResult("Intelligence must be 50 or greater", new[] { nameof(Name) });
         }
-
-
     }
 }

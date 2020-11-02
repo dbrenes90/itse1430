@@ -10,11 +10,12 @@ namespace MovieLibrary.Memory
         //Not on interface
         //Array - Type[]
         //public Movie[] Items { get; set; }
-        public Movie Add ( Movie movie, out string error )
+       //public Movie AddCore ( Movie movie, out string error )
+       protected override Movie AddCore (Movie movie)
         {
             //TODO: Movie is valid
             // Movie name is unique
-            error = "";
+            // error = "";
 
             //Find first empty spot in array
             // for ( Ei; EC; EU) S ;
@@ -159,6 +160,16 @@ namespace MovieLibrary.Memory
 
             return "";
 
+        }
+        protected override Movie FindByName ( string name )
+        {
+            foreach (var movie in _movies)
+            {
+                if (String.Compare(movie.Name, name, true) == 0)
+                    return CloneMovie(movie);
+            };
+
+            return null;
         }
         private void CopyMovie ( Movie target, Movie source )
         {

@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace CharacterCreator
 {
-    public class CharacterDatabase : ICharacterDatabase
+    public class MemoryCharacterDatabase : ICharacterDatabase
     {
         public Character Add ( Character character, out string error )
         {
@@ -30,7 +30,7 @@ namespace CharacterCreator
             var character = GetById(id);
             if (character!= null)
             {
-                
+                //mus tus the same instance that is stored in the list so ref equality works
                 _characters.Remove(character);
             };
         }
@@ -44,14 +44,18 @@ namespace CharacterCreator
         public Character Get ( int id )
         {
             var character = GetById(id);
-            
+
+            //Clone movie if we found it
             return (character!=null) ? CloneCharacter(character) : null;
         }
 
         private Character GetById ( int id )
-        {          
+        {
+            // foreach ( var id in array) Statement
+            //for (var index = 0; index<_movies.Length; ++index)
             foreach (var character in _characters)
             {
+
                 if (character?.Id == id)
                     return character;
             };

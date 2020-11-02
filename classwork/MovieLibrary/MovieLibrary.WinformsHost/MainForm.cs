@@ -2,16 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 
-//Hierarchical namespaces
-//namespace MovieLibrary
-//{
- //   namespace WinformsHost
-  //  {
-  //  }
-//}
-// namespace Company.Product.<area>
-// namespace Microsoft.Office.Word
-// namespace Microsoft.Office.Excel
+
 namespace MovieLibrary.WinformsHost
 {
     public partial class MainForm : Form
@@ -222,10 +213,3 @@ namespace MovieLibrary.WinformsHost
 
     }
 }
-
-//namespace OtherNamespace
-// {
-//public class MainForm
-//  {
-//   }
-//}

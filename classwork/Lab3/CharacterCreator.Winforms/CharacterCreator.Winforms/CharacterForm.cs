@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
@@ -43,8 +44,8 @@ namespace CharacterCreator.Winforms
             if (Character != null)
             {
                 _txtName.Text = Character.Name;
-                _comboProfession.SelectedText = Character.Profession;
-                _comboRace.SelectedText = Character.Race;
+                _comboProfession.SelectedItem = Character.Profession;
+                _comboRace.SelectedItem = Character.Race;
                 _numStrength.Value = Character.Strength;
                 _numIntelligence.Value = Character.Intelligence;
                 _numConstitution.Value = Character.Constitution;
@@ -111,15 +112,12 @@ namespace CharacterCreator.Winforms
 
                 var character = new Character();
 
-                character.Name = _txtName.Text;
+                character.Name = _txtName.Text;           
 
-                var item = _comboProfession.SelectedItem as Character;
-             
                 character.Profession = (string)_comboProfession.SelectedItem;
-                var race = _comboRace.SelectedItem as Character;
-                //if (race != null)
-                  //  character.Race = race.ToString();
+                
                 character.Race = (string)_comboRace.SelectedItem;
+
                 character.Strength = (int)_numStrength.Value;
                 character.Intelligence = (int)_numIntelligence.Value;
                 character.Agility = (int)_numAgility.Value;
@@ -128,21 +126,23 @@ namespace CharacterCreator.Winforms
                 character.Description = _txtDescription.Text;
 
                 //MessageBox.Show(this, Character.Profession);
-                var error = character.Validate(); // Code runs to this when set to breakpoint. How to save form to List Array?
-               // if (!String.IsNullOrEmpty(error))
-               // {
-                    //Show error message - use for standard messages
-                  //  MessageBox.Show(this, error, "Save Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                 //   DialogResult = DialogResult.None;
-                  //  Close();
-                  //  return;
-              //  }
-
-                Character = character;
+                var validationResults = new ObjectValidator().TryValidateFullObject(character); // Code runs to this when set to breakpoint. How to save form to List Array?
                 
+            if (validationResults.Count() > 0)
+            {
+                var builder = new System.Text.StringBuilder();
+                foreach (var result in validationResults)
+                {
+                    builder.AppendLine(result.ErrorMessage);
+                };
+                MessageBox.Show(this, builder.ToString(), "Save Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DialogResult = DialogResult.None;
+
+                return;
+            }               
+                Character = character;                
                 Close();
         }
-
         private void OnCancel ( object sender, EventArgs e )
         {
             Close();

@@ -37,7 +37,7 @@ namespace CharacterCreator.Winforms
 
             RefreshRoster();
         }
-        //private ICharacterDatabase _characters = new CharacterDatabase();
+        private ICharacterDatabase _characters = new CharacterDatabase();
         private void OnCharacterDelete ( object sender, EventArgs e )
         {
             var character = GetSelectedCharacter();
@@ -51,7 +51,7 @@ namespace CharacterCreator.Winforms
 
             }
 
-            //TODO: Delete movie
+            
             DeleteCharacter(character.Id);
             RefreshRoster();
 
@@ -72,7 +72,7 @@ namespace CharacterCreator.Winforms
             _characters.Delete(id);
         }
         //private Character _character;
-        private CharacterDatabase _characters = new CharacterDatabase();
+        
         private Character GetSelectedCharacter ()
         {
             return _lbRoster.SelectedItem as Character;
@@ -80,16 +80,16 @@ namespace CharacterCreator.Winforms
         }
         private void RefreshRoster ()
         {
-            _lbRoster.DataSource = null;
+            //_lbRoster.DataSource = null;
             _lbRoster.DataSource = _characters.GetAll().ToArray();
-            //_lbRoster.DisplayMember = nameof(Character.Name);
+            _lbRoster.DisplayMember = nameof(Character.Name);
         }
         private void OnCharacterNew ( object sender, EventArgs e )
         {
             var form = new CharacterForm();
 
             var result = form.ShowDialog(this);
-            if (result == DialogResult.Cancel)
+            if (result == DialogResult.OK)
                 return;
 
             //_characters = form.Character;
