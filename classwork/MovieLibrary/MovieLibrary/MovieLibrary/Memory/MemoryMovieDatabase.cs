@@ -10,8 +10,8 @@ namespace MovieLibrary.Memory
         //Not on interface
         //Array - Type[]
         //public Movie[] Items { get; set; }
-       //public Movie AddCore ( Movie movie, out string error )
-       protected override Movie AddCore (Movie movie)
+        //public Movie AddCore ( Movie movie, out string error )
+        protected override Movie AddCore ( Movie movie )
         {
             //TODO: Movie is valid
             // Movie name is unique
@@ -100,7 +100,7 @@ namespace MovieLibrary.Memory
             foreach (var movie in _movies) // relies on IEnumerator<T>
                                            // items[index++] = CloneMovie(movie);
                 yield return CloneMovie(movie);
-                ;
+            ;
             //return items;
         }
 
@@ -200,5 +200,5 @@ namespace MovieLibrary.Memory
         private List<Movie> _movies = new List<Movie>();    //Generic list of movies, use for fields
         private int _id = 1;
 
-
+    }
 }

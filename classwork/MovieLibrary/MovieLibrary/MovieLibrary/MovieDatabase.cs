@@ -60,9 +60,7 @@ namespace MovieLibrary
 
 
         }
-        //Not on interface
-        public void Foo(){}
-
+        //Not on interface    
         //Array - Type[]
         //public Movie[] Items { get; set; }
         public Movie Add ( Movie movie, out string error )
@@ -86,15 +84,7 @@ namespace MovieLibrary
                 error = "Movie must be unique";
                 return null;
             }
-            //error = "";//commented out after ivalidatable
-
-            //Find first empty spot in array
-            // for ( Ei; EC; EU) S ;
-            //     EI::= initializer expression (runs once before loop executes)
-            //     EC::= conditional expresssion => boolean (executes before loop statement is run, aborts if condition is false)
-            //     EU::= update expression ( runs at end of current iteration)
-            // Length -> int (# of rows in the array)
-
+            //error = "";//commented out after ivalidatable     
             //Clone so argument can be modified without impacting our array
             //var item = CloneMovie(movie);
 
@@ -112,11 +102,11 @@ namespace MovieLibrary
             //TODO: No more room
             // error = "No more room";
             //return null;
-
-
         }
 
         protected abstract Movie AddCore ( Movie movie );
+
+        protected abstract void DeleteCore ( int id );
         
 
         protected virtual Movie FindByName ( string name )

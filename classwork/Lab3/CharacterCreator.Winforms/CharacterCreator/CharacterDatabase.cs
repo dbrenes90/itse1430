@@ -2,7 +2,7 @@
  * Lab 3 ITSE 1430
  * Character Creator
  * Character Database
- * 10/30/2020
+ * 11/02/2020
  */
 using System;
 using System.Collections.Generic;
@@ -13,38 +13,38 @@ namespace CharacterCreator
 {
     public class CharacterDatabase : ICharacterDatabase
     {
+        protected CharacterDatabase ()
+        {
+        }
         public Character Add ( Character character, out string error )
         {
             var item = CloneCharacter(character);
+            item.Id = _id++;
             error = "";
             _characters.Add(item);
-
             character.Id = item.Id;
+            
+            
 
             return character;
-
         }
         public void Delete ( int id )
         {
-
             var character = GetById(id);
             if (character!= null)
-            {
-                
+            {                
                 _characters.Remove(character);
             };
         }
         public IEnumerable<Character> GetAll ()
         {
             foreach (var character in _characters)
-
                 yield return CloneCharacter(character);
             ;
         }
         public Character Get ( int id )
         {
-            var character = GetById(id);
-            
+            var character = GetById(id);            
             return (character!=null) ? CloneCharacter(character) : null;
         }
 

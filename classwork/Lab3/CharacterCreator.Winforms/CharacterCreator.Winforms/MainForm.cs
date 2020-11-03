@@ -70,9 +70,7 @@ namespace CharacterCreator.Winforms
         private void DeleteCharacter ( int id )
         {
             _characters.Delete(id);
-        }
-        //private Character _character;
-        
+        }      
         private Character GetSelectedCharacter ()
         {
             return _lbRoster.SelectedItem as Character;
@@ -82,7 +80,7 @@ namespace CharacterCreator.Winforms
         {
             //_lbRoster.DataSource = null;
             _lbRoster.DataSource = _characters.GetAll().ToArray();
-            _lbRoster.DisplayMember = nameof(Character.Name);
+           // _lbRoster.DisplayMember = nameof(Character.Name);
         }
         private void OnCharacterNew ( object sender, EventArgs e )
         {
@@ -97,8 +95,7 @@ namespace CharacterCreator.Winforms
 
             MessageBox.Show("Save successful");
 
-            RefreshRoster();
-            
+            RefreshRoster();            
         }
         private void OnCharacterEdit ( object sender, EventArgs e )
         {
@@ -106,21 +103,17 @@ namespace CharacterCreator.Winforms
             if (character == null)
                 return;
 
-            var form = new CharacterForm(character, "Edit Character");
-            //form.Movie = _movie;
+            var form = new CharacterForm(character, "Edit Character");            
 
-            var result = form.ShowDialog(this); //Blocks until form is dismissed
+            var result = form.ShowDialog(this);
             if (result == DialogResult.Cancel)
                 return;
-
-            // TODO: Update movie
+         
             EditCharacter(character.Id, form.Character);
-
         }
         private void OnHelpAbout ( object sender, EventArgs e )
         {
             var about = new AboutBox1();
-
             about.ShowDialog(this);
         }
         private void OnExit ( object sender, EventArgs e )

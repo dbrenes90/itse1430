@@ -23,14 +23,11 @@ namespace CharacterCreator.Winforms
             InitializeComponent();
         }
         public CharacterForm ( Character character) : this(character, null)
-        {
-            //Movie = movie; 
+        {            
         }
-
-        //Constructor chaining - calling one constructor from another
+        
         public CharacterForm ( Character character, string title ) : this()
-        {
-            //InitializeComponent();
+        {           
 
             Character = character;
             Text = title ?? "Add Character";
@@ -53,8 +50,7 @@ namespace CharacterCreator.Winforms
                 _numCharisma.Value = Character.Charisma;
                 _txtDescription.Text = Character.Description;
             };
-
-            // Go ahead and show validation errors
+                       
             ValidateChildren();
         }
        
@@ -81,7 +77,6 @@ namespace CharacterCreator.Winforms
                 e.Cancel = true;
             } else
                 _errors.SetError(control, "");
-
         }
 
         private void OnValidateRace ( object sender, CancelEventArgs e )
@@ -97,8 +92,7 @@ namespace CharacterCreator.Winforms
         }
 
         private void OnSave ( object sender, EventArgs e )
-        {
-           
+        {          
             
                 if (!ValidateChildren())
                 {
@@ -124,9 +118,8 @@ namespace CharacterCreator.Winforms
                 character.Constitution = (int)_numConstitution.Value;
                 character.Charisma = (int)_numCharisma.Value;
                 character.Description = _txtDescription.Text;
-
-                //MessageBox.Show(this, Character.Profession);
-                var validationResults = new ObjectValidator().TryValidateFullObject(character); // Code runs to this when set to breakpoint. How to save form to List Array?
+                            
+                var validationResults = new ObjectValidator().TryValidateFullObject(character); 
                 
             if (validationResults.Count() > 0)
             {

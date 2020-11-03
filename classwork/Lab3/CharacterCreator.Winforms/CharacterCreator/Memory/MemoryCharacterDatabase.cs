@@ -1,17 +1,17 @@
 ﻿/* Daniel Brenes
  * Lab 3 ITSE 1430
  * Character Creator
- * Character Database
- * 10/30/2020
+ * Memory Character Database
+ * 11/02/2020
  */
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 
-namespace CharacterCreator
+namespace CharacterCreator.Memory
 {
-    public class MemoryCharacterDatabase : ICharacterDatabase
+    public class MemoryCharacterDatabase : CharacterDatabase
     {
         public Character Add ( Character character, out string error )
         {
@@ -43,19 +43,14 @@ namespace CharacterCreator
         }
         public Character Get ( int id )
         {
-            var character = GetById(id);
-
-            //Clone movie if we found it
+            var character = GetById(id);            
             return (character!=null) ? CloneCharacter(character) : null;
         }
 
         private Character GetById ( int id )
-        {
-            // foreach ( var id in array) Statement
-            //for (var index = 0; index<_movies.Length; ++index)
+        {           
             foreach (var character in _characters)
             {
-
                 if (character?.Id == id)
                     return character;
             };
@@ -72,9 +67,7 @@ namespace CharacterCreator
             return "";
         }
         private void CopyCharacter ( Character target, Character source )
-        {
-            //var item = new Movie();
-            //item.Id = movie.Id;
+        {            
             target.Name = source.Name;
             target.Profession = source.Profession;
             target.Race = source.Race;
@@ -90,7 +83,6 @@ namespace CharacterCreator
             item.Id = character.Id;
             CopyCharacter(item, character);
             return item;
-
         }
         private List<Character> _characters = new List<Character>();
         private int _id = 1;

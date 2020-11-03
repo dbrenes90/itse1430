@@ -15,7 +15,7 @@ namespace MovieLibrary
     // IList<T>, IReadOnlyList<T>
     // IComparer<T> - relational comparison, StringComparer
     // ICloneable - clone objects, but doesn't actually work
-    // IValidateObject - validates objects
+    // IValidatableObject - validates objects
 
     // Abstract Class: Class - Interface - Abstract. 
 

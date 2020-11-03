@@ -2,7 +2,7 @@
  * Lab 3 ITSE 1430
  * Character Creator
  * Character Class
- * 10/30/2020
+ * 11/02/2020
  */
 using System;
 using System.Collections.Generic;
