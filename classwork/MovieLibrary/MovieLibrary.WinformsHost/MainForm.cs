@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 
+using MovieLibrary.Memory;
 
 namespace MovieLibrary.WinformsHost
 {
@@ -43,6 +44,7 @@ namespace MovieLibrary.WinformsHost
             base.OnLoad(e);
 
             RefreshUI();
+
         }
         private void OnHelpAbout ( object sender, EventArgs e )
         {
@@ -58,7 +60,7 @@ namespace MovieLibrary.WinformsHost
         //  Index : 0 to Size -1
         // private Movie[] _movies = new Movie[100]; //0.99
 
-        private IMovieDatabase _movies = new MovieDatabase();
+        private IMovieDatabase _movies = new MemoryMovieDatabase();
        
         // private Movie[] _emptyMovies = new Movie[0]; // empty arrays and nulls to be equivalent so always use empty array instead of null
 
