@@ -5,11 +5,11 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <Authors>Daniel Brenes</Authors>
-    <Description>A program that creates a character for a RPG.
-
-ITSE 1430 Intro to C# Programming
-Lab #2</Description>
+    <Company />
     <Product>Character Creator</Product>
+    <Description>A program to create a character for a role playing game. 
+ITSE 1430 Intro to C# Programming.
+Lab 3</Description>
   </PropertyGroup>
 
   <ItemGroup>

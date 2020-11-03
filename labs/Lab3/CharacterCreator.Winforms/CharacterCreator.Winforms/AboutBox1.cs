@@ -1,4 +1,10 @@
-﻿using System;
+﻿/* Daniel Brenes
+ * Lab 3 ITSE 1430
+ * Character Creator
+ * AboutBox Class
+ * 10/30/2020
+ */
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
