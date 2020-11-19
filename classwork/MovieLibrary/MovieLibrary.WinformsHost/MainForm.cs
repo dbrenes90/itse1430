@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 
+using MovieLibrary.IO;
 using MovieLibrary.Memory;
 
 namespace MovieLibrary.WinformsHost
@@ -26,7 +27,7 @@ namespace MovieLibrary.WinformsHost
             movie.Name = "Jaws";
             movie.Description = "Shark movie";
          
-            // var str = movie.descrioption;
+            // var str = movie.description;
             // Capital letters are either types or namespaces
             // Lowercase = local variables first (camelCase)
 
@@ -43,7 +44,20 @@ namespace MovieLibrary.WinformsHost
         {
             base.OnLoad(e);
 
-            RefreshUI();
+            int count = RefreshUI();
+            if (count == 0)
+            {
+                //Seed database if empty
+                if (MessageBox.Show(this, "No movies found. Do you want to add some example movies?", "Database empty", MessageBoxButtons.YesNo, MessageBoxIcon.Question)== DialogResult.Yes)
+                {
+                    //var seed = new SeedMovieDatabase();
+                    //seed.Seed(_movies);
+                    //SeedMovieDatabase.Seed(_movies);
+                    _movies.Seed();
+                    RefreshUI();
+                };
+
+            };
 
         }
         private void OnHelpAbout ( object sender, EventArgs e )
@@ -60,19 +74,20 @@ namespace MovieLibrary.WinformsHost
         //  Index : 0 to Size -1
         // private Movie[] _movies = new Movie[100]; //0.99
 
-        private IMovieDatabase _movies = new MemoryMovieDatabase();
+        private IMovieDatabase _movies = new Sql.SqlMovieDatabase();
+        // private IMovieDatabase _movies = new IO.FileMovieDatabase("movies.csv");
        
         // private Movie[] _emptyMovies = new Movie[0]; // empty arrays and nulls to be equivalent so always use empty array instead of null
 
         private void AddMovie ( Movie movie)
         {
-            
-            var newMovie = _movies.Add(movie, out var message);
-            if (newMovie == null)
-            {
-                MessageBox.Show(this, message, "Add Failed", MessageBoxButtons.OK);
-                return;
-            }
+            _movies.Add(movie);
+            // var newMovie = _movies.Add(movie, out var message);
+            //if (newMovie == null)
+           // {
+            //    MessageBox.Show(this, message, "Add Failed", MessageBoxButtons.OK);
+            //    return;
+            //};
 
             RefreshUI();
             //Find first empty spot in array
@@ -99,6 +114,7 @@ namespace MovieLibrary.WinformsHost
         private void DeleteMovie ( int id )
         {
             _movies.Delete(id);
+            RefreshUI();
            /*for (var index = 0; index<_movies.Length; ++index)
             {
                 // Array element access ::= V{int}
@@ -114,12 +130,13 @@ namespace MovieLibrary.WinformsHost
         }
         private void EditMovie (int id, Movie movie )
         {
-            var error = _movies.Update(id, movie);
-            if (String.IsNullOrEmpty(error))
-            {
-                RefreshUI();
-                return;
-            };
+            _movies.Update(id, movie);
+            RefreshUI();
+            //if (String.IsNullOrEmpty(error))
+            //{
+             //   RefreshUI();
+              //  return;
+           // };
             /*for (var index = 0; index<_movies.Length; ++index)
             {
                 // Array element access ::= V{int}
@@ -134,22 +151,31 @@ namespace MovieLibrary.WinformsHost
                 }
             };*/
 
-            MessageBox.Show(this, /*"Cannot find movie"*/error, "Edit Movie", MessageBoxButtons.OK);
+            //MessageBox.Show(this, /*"Cannot find movie"*/error, "Edit Movie", MessageBoxButtons.OK);
         }
 
         private Movie GetSelectedMovie()
         {
-            return _lstMovies.SelectedItem as Movie;
-            
+            return _lstMovies.SelectedItem as Movie;            
         }
-        private void RefreshUI ()
+        private int RefreshUI ()
         {
-            //_lstMovies.DisplayMember = nameof(Movie.Name); //nameof provides type equivalent of the member name ("Name")
-           
-            _lstMovies.DataSource = _movies.GetAll().ToArray();
-           //  _lstMovies.DataSource = null;
-            // _lstMovies.DataSource = _movies.GetAll();
+            //ToArray => extension method
+            //  Allows us to call a method like an instance method  on a type that does not actually implement it
+            // Adding functionality to type
+            //   1. Open type and add new instance method - only works if you own the type
+            //   2. Inherit from type - if base type allows inheritance and you are OK using the derived type
+            //   3. Extension method - works with any type
+            // Calling an extension method
+            //  1. Just like an instance method
+            var items = _movies.GetAll().ToArray();
 
+            //_lstMovies.DisplayMember = nameof(Movie.Name); //nameof provides type equivalent of the member name ("Name")
+
+            _lstMovies.DataSource = items;
+            // _lstMovies.DataSource = null;
+            // _lstMovies.DataSource = _movies.GetAll();
+            return items.Length;
             
 
         }
@@ -157,17 +183,42 @@ namespace MovieLibrary.WinformsHost
         {
             var form = new MovieForm();
 
-            // Can show two different ways
-            // ShowDialog - modal :: user must interact with child form, cannot access parent
-            // Show - modeless :: multiples windows open and accessible at the same time
-            var result = form.ShowDialog(this); //Blocks until form is dismissed/
-            if (result == DialogResult.Cancel)
-                return;
+            do
+            {
+                // Can show two different ways
+                // ShowDialog - modal :: user must interact with child form, cannot access parent
+                // Show - modeless :: multiples windows open and accessible at the same time
+                var result = form.ShowDialog(this); //Blocks until form is dismissed/
+                if (result == DialogResult.Cancel)
+                    return;
 
-            // Save movie
-            //_movie = form.Movie;
-            AddMovie(form.Movie);
-           
+                //Handle errors
+                // try-catch ::= try-block catch-statement
+                // try-block ::= try S
+                // catch-block ::= catch-conditional-block* [catch-block]
+                // catch-conditional-block ::= catch (T id) S
+
+                // Save movie
+                try
+                {
+                    //Try to do this
+                    AddMovie(form.Movie);
+                    //AddMovie(null);
+                    return;
+                } catch (InvalidOperationException ex)
+                {
+                    MessageBox.Show(this, ex.Message, "Invalid Operation", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                } catch (ArgumentException ex)
+                {
+                    MessageBox.Show(this, ex.Message, "Bad Argument", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                } catch (Exception ex) // Equivalent to catch 
+                {
+                    //Handle errors
+                    MessageBox.Show(this, ex.Message, "Add Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    throw;
+                };
+                //_movie = form.Movie;
+            } while (true);
         }
         
         private void OnMovieDelete ( object sender, EventArgs e )
@@ -181,12 +232,15 @@ namespace MovieLibrary.WinformsHost
             {
                 case DialogResult.Yes: break;
                 case DialogResult.No: return;
-
             }
-
-            //TODO: Delete movie
-            DeleteMovie(movie.Id);
-            RefreshUI();
+            
+            try
+            {
+                DeleteMovie(movie.Id);
+            } catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Delete Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            };
         }
 
         private void OnMovieEdit ( object sender, EventArgs e )
@@ -195,7 +249,7 @@ namespace MovieLibrary.WinformsHost
             if (movie == null)
                 return;
           
-            //OBject creation
+            //Object creation
             // 1. Allocate memory for instance, zero initialized
             // 2. Initialize fields 
             // 3. Constructor (finish initialization)
@@ -208,9 +262,23 @@ namespace MovieLibrary.WinformsHost
             if (result == DialogResult.Cancel)
                 return;
 
-            // TODO: Update movie
-            EditMovie(movie.Id, form.Movie);
-            
+            try
+            {
+                EditMovie(movie.Id, form.Movie);
+            } catch (InvalidOperationException ex)
+            {
+                MessageBox.Show(this, ex.Message, "Invalid Operation", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            } catch (ArgumentException ex)
+            {
+                MessageBox.Show(this, ex.Message, "Bad Argument", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            } catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Edit Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                //Rethrow exception
+                throw;
+            };
+
         }
 
     }

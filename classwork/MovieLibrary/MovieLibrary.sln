@@ -5,11 +5,15 @@ VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieLibrary.ConsoleHost", "MovieLibrary.ConsoleHost\MovieLibrary.ConsoleHost.csproj", "{2E1BD505-391E-46CC-A8B1-361C47C51267}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLibrary.WinformsHost", "MovieLibrary.WinformsHost\MovieLibrary.WinformsHost.csproj", "{EA825012-F631-4F3F-BE4E-9BACA6B6FE70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieLibrary.WinformsHost", "MovieLibrary.WinformsHost\MovieLibrary.WinformsHost.csproj", "{EA825012-F631-4F3F-BE4E-9BACA6B6FE70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLibrary", "MovieLibrary\MovieLibrary\MovieLibrary.csproj", "{F3F6FAB0-506B-43B9-A5BD-A9C8BF058319}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieLibrary", "MovieLibrary\MovieLibrary\MovieLibrary.csproj", "{F3F6FAB0-506B-43B9-A5BD-A9C8BF058319}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{63B32582-BECC-4EC2-A5FA-2B7DFE6546D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLibrary.Sql", "MovieLibrary.Sql\MovieLibrary.Sql.csproj", "{F7523162-5605-4BC8-AD90-F862AB871EC7}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MovieDb", "MovieDb\MovieDb\MovieDb.sqlproj", "{BDE72751-B36A-499E-81E4-7FB8951B67F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +33,16 @@ Global
 		{F3F6FAB0-506B-43B9-A5BD-A9C8BF058319}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3F6FAB0-506B-43B9-A5BD-A9C8BF058319}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3F6FAB0-506B-43B9-A5BD-A9C8BF058319}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7523162-5605-4BC8-AD90-F862AB871EC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7523162-5605-4BC8-AD90-F862AB871EC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7523162-5605-4BC8-AD90-F862AB871EC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7523162-5605-4BC8-AD90-F862AB871EC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDE72751-B36A-499E-81E4-7FB8951B67F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDE72751-B36A-499E-81E4-7FB8951B67F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDE72751-B36A-499E-81E4-7FB8951B67F5}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{BDE72751-B36A-499E-81E4-7FB8951B67F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDE72751-B36A-499E-81E4-7FB8951B67F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDE72751-B36A-499E-81E4-7FB8951B67F5}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

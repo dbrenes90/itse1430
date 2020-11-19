@@ -118,7 +118,7 @@ namespace MovieLibrary.WinformsHost
             // movie.Age = 10; because no set (not writeable only readable)
 
             //Validate: TODO: Fix type validate
-            var validationResults = new ObjectValidator().TryValidateFullObject(movie);
+            var validationResults = ObjectValidator.TryValidateFullObject(movie);
                     
             if (validationResults.Count() > 0)
             {

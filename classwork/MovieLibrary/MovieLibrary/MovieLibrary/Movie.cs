@@ -20,6 +20,13 @@ namespace MovieLibrary
 
     // doctags (document tags) every class should have these
 
+    // Static vs instance members
+    // Instance members are tied to the instance they are called on
+    //      Fields - data in the instance (instance._id, instance._name)
+    //      Methods - requires an instance to execute (instance.method()) (instance.ToString)
+    //   Static members are global to all instances (Type.Member)
+    //      Fields - equivalent to global variable 
+    //      Method - equivalent to a global function (static method does not have instance access), no this parameter (Int32.TryParse)
     /// <summary>Represents a movie.</summary>
     /// <remarks>
     /// A paragraph of information.

@@ -19,7 +19,7 @@ namespace MovieLibrary
 
     // Abstract Class: Class - Interface - Abstract. 
 
-    /// <summary>Provides an interaface for storing and retrieving movies.</summary>
+    /// <summary>Provides an interface for storing and retrieving movies.</summary>
     public interface IMovieDatabase
     {
         /// <summary>
@@ -27,9 +27,8 @@ namespace MovieLibrary
         /// <param name="movie">The movie to add.</param>
         /// <param name="error">The error message, if any.</param>
         /// <returns>The new movie.</returns>
-        /// error: Movie is invalid
-        /// error: Movie already exists
-        Movie Add ( Movie movie, out string error );
+        /// <exception> cref = "ArgumentNullException"</exception>
+        Movie Add ( Movie movie );
         /// <summary>
         /// Deletes a movie from the database.</summary>
         /// <param name="id">The movie to delete.</param>
@@ -37,6 +36,6 @@ namespace MovieLibrary
         void Delete ( int id );
         Movie Get ( int id );
         IEnumerable<Movie> GetAll ();
-        string Update ( int id, Movie movie );
+        void Update ( int id, Movie movie );
     }
 }
