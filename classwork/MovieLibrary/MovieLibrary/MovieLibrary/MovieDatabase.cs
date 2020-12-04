@@ -249,6 +249,45 @@ namespace MovieLibrary
         }
         protected abstract void UpdateCore ( int id, Movie movie );
 
+        // LINQ - Language Integrated Natural Query
+        //   Deferred execution - Next element is not retrieved until needed 
+        //     Directory.GetFiles() -> string[] (not deferred execution)
+        //     Directory.EnumerateFiles() -> IEnumerable<string>  (deferred)
+        //
+        // Common extension methods for IEnumerable<T>
+        //   Conversion (enumerates all the members when called)
+        //      ToArray() - > T[]
+        //      ToList()  - > List<T>
+        //   Casting (deferred execution)
+        //      OfType<T>() - > Returns IEnumerable<T> of any items that are compatible with T
+        //      Cast<T>() - > Returns IEnumerable<T> but crashes if anything doesn't match type
+        //   Get item (not deferred) -> T
+        //     First/FirstOrDefault -  Gets first item (if any)
+        //     Last/LastOrDefault - Gets last item (if any)
+        //     Single/SingleOrDefault - Gets only item (if any)
+        //   Query -> IEnumerable<T> (replaces foreach)
+        //     Where(condition) -> IEnumerable<T>
+        //     OrderBy(member) -> IEnumerable<T> ordered by member
+        //     Select<T> -> IEnumerable<T>
+        //     GroupBy<T> -> grouoped IEnumerable<T>
+        //     Join() -> IEnumerable<T>
+
+        // Delegate (function object, functor)
+        //   Treat a function as data
+        //   Action => void fx ()
+        //   Action<T> => void fx ( T )
+        //   Action<T1, T2> => void fx ( T1, T2)
+        //   Func<T> => T fx()
+        //   Func<T, R> => R fx (T)
+        //   Func<T1, T2, R> => R fx( T1, T2)
+        //
+        // Lambda expression / anonymous methods
+        //   Method that has no name
+        //   parameters => expression
+        //   parameters => { statements* }
+        //   parameter types are inferred
+        //  If you need more than 1 parameter or no parameters use empty parens
+
         //Only store cloned copies of movies here!!
         //private Movie[] _movies = new Movie[100];
         //private List<Movie> _movies = new List<Movie>(); // Generic list of Movies (dynamically resizable array (storing set of items, number of items not known))

@@ -172,7 +172,12 @@ namespace MovieLibrary.WinformsHost
             //   3. Extension method - works with any type
             // Calling an extension method
             //  1. Just like an instance method
-            var items = _movies.GetAll().ToArray();
+            //System.Collections.Generic.IEnumerable<Movie> movies = _movies.GetAll();
+            var items = _movies.GetAll()
+                                   .OrderBy(x => x.Name).ThenBy(x => x.ReleaseYear)
+                                   .Select(x => x)
+                                   .ToArray();   //Transform
+            //var items = movies.ToArray();
 
             //_lstMovies.DisplayMember = nameof(Movie.Name); //nameof provides type equivalent of the member name ("Name")
 
