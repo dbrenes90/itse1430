@@ -74,9 +74,13 @@ namespace MovieLibrary.WinformsHost
         //  Index : 0 to Size -1
         // private Movie[] _movies = new Movie[100]; //0.99
 
-        private IMovieDatabase _movies = new Sql.SqlMovieDatabase();
+        private IMovieDatabase _movies = new Sql.SqlMovieDatabase(_connectionString);
+
+        //Normally don't put this in code - put in a configuration file
+        private const string _connectionString = @"Data Source=(localdb)\ProjectsV13;Initial Catalog=MovieDb;Integrated Security=True;";
+
         // private IMovieDatabase _movies = new IO.FileMovieDatabase("movies.csv");
-       
+
         // private Movie[] _emptyMovies = new Movie[0]; // empty arrays and nulls to be equivalent so always use empty array instead of null
 
         private void AddMovie ( Movie movie)
