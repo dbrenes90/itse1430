@@ -128,6 +128,7 @@ namespace MovieLibrary.WinformsHost
                 {
                     builder.AppendLine(result.ErrorMessage);
                 };
+                var error = String.Join(Environment.NewLine, validationResults.Select(x => x.ErrorMessage)); // Same as the builder and foreach method
 
                 //Show error messasge
                 MessageBox.Show(this, builder.ToString(), "Save Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);

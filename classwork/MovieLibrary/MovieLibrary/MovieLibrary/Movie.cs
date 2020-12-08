@@ -81,13 +81,13 @@ namespace MovieLibrary
         // 3. Get/Set is in name (type) method shouldn't have Get or Set
         // public int GetAge () {}
 
-        public int Age
-        {
+        // Calculated property with expression body simplifies to one line...
+        public int Age => DateTime.Now.Year - ReleaseYear;
             // Calculated property
             // Read only property because // set is commented out
-            get { return DateTime.Now.Year - ReleaseYear; }
+            // public int Age { get { return DateTime.Now.Year }  
             //set { }
-        }
+        
 
         // Mixed accessibility - using a different access on either getter or setter
         // 1. Only 1 method can have access modifier    
@@ -101,12 +101,18 @@ namespace MovieLibrary
         // auto-property ::= {access} T identifier {get;}
         // properties do not store data in a class, only member in a class that can store data is a field.
         // Properties returning arrays or strings should not return null
+
         public string Name
         {
+            get => _name ?? "";
+            set => _name = value;
+        }
+       // public string Name
+        //{
             //getter T get_Name()
             
-            get 
-            {
+            //get 
+           // {
                 //Coalesce - scanning a series of expressions looking for non-NULL
                 // Expression ?? Expression (boolean operator takes two expressions)
                 // if E1 is not null then return E1
@@ -116,23 +122,23 @@ namespace MovieLibrary
                 // return "";
                 // else return _name;
 
-                return _name ?? "";
-            }
+             //   return _name ?? "";
+          //  }
 
             //setter only allowed for properties, 2 statements.
             // void set_Name ( T value )
-            set 
-            {
-                _name = value;
-            }
-        }
+           // set 
+           // {
+           //     _name = value;
+           // }
+       // }
         private string _name = "";
 
         /// <summary>Gets or sets the movie description.</summary>
         public string Description
         {
-            get { return _description ?? ""; }
-            set { _description = value; }
+            get => _description ?? "";
+            set => _description = value;
         }
         private string _description = "";
 
@@ -165,7 +171,7 @@ namespace MovieLibrary
             set { _isClassic = value;}
         }*/
 
-    
+
 
 
         // Functionality - functions you want to expose
@@ -203,10 +209,10 @@ namespace MovieLibrary
             return null;
         }
         */
-        public override string ToString ()
-        {
-            return Name;
-        }
+        public override string ToString () => Name;
+        //{
+         //   return Name;
+        //}
 
         public IEnumerable<ValidationResult> Validate ( ValidationContext validationContext )
         {

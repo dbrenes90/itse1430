@@ -175,8 +175,8 @@ namespace MovieLibrary.WinformsHost
             //System.Collections.Generic.IEnumerable<Movie> movies = _movies.GetAll();
             var items = _movies.GetAll()
                                    .OrderBy(x => x.Name).ThenBy(x => x.ReleaseYear)
-                                   .Select(x => x)
-                                   .ToArray();   //Transform
+                                   .Select(x => x) //Transform
+                                   .ToArray();   
             //var items = movies.ToArray();
 
             //_lstMovies.DisplayMember = nameof(Movie.Name); //nameof provides type equivalent of the member name ("Name")

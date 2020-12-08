@@ -88,15 +88,16 @@ namespace MovieLibrary
         protected abstract void DeleteCore ( int id );
         
 
-        protected virtual Movie GetByName ( string name )
-        {
-            foreach ( var movie in GetAll())
-            {
-                if (String.Compare(movie.Name, name, true) == 0)
-                    return movie;
-             };
-            return null;
-        }
+        //Expression body method => E;
+        protected virtual Movie GetByName ( string name ) => GetAll().FirstOrDefault(x => String.Compare(x.Name, name, true) == 0);
+        //protected virtual Movie GetByName ( string name)
+            //foreach ( var movie in GetAll())
+            //{
+             //   if (String.Compare(movie.Name, name, true) == 0)
+              //      return movie;
+             //};
+            //return null;
+        
         public void Delete ( int id )
         {
             // Validate Id > 0
@@ -288,6 +289,18 @@ namespace MovieLibrary
         //   parameters => { statements* }
         //   parameter types are inferred
         //  If you need more than 1 parameter or no parameters use empty parens
+
+        // Expression bodies (limited to methods, constructors, operators, properties)
+        //    method => E;
+        //    T property { get => E; set => S; }
+        //    T property => E;
+        //    Replaces a method body that has a single return statement (compiler rewrites to regular method)
+
+        //  LINQ Syntax
+        //     from x in IEnumerable<T>
+        //     [where lambda expression]
+        //     [orderby member, member]
+        //     select E
 
         //Only store cloned copies of movies here!!
         //private Movie[] _movies = new Movie[100];
