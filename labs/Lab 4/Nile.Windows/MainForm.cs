@@ -194,7 +194,7 @@ namespace Nile.Windows
         {
             //TODO: Handle errors
 
-            _bsProducts.DataSource = _database.GetAll();
+            _bsProducts.DataSource = _database.GetAll().OrderBy(x => x.Name).ThenBy(x => x.Id);
         }
 
         private readonly IProductDatabase _database = new Stores.SqlProductDatabase(_connectionString);
