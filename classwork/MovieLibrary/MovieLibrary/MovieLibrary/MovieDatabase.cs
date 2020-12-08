@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 //Abstract class required if any member is abstract
@@ -81,7 +82,7 @@ namespace MovieLibrary
             // error = "No more room";
             //return null;
         }
-
+        
         protected abstract Movie AddCore ( Movie movie );
 
         protected abstract void DeleteCore ( int id );
@@ -108,7 +109,7 @@ namespace MovieLibrary
             } catch (Exception e)
             {
                 //Throwing a new exception 
-                throw new InvalidOperationException("Add Failed", e);
+                throw new InvalidOperationException("DeleteFailed", e);
             }; 
 
             //var movie = GetById(id);
