@@ -26,13 +26,14 @@ namespace MovieLibrary.WebHost.Controllers
             var movies = _database.GetAll();
 
             //IEnumerable<MovieModel> model = 
-            var model = movies.Select(x => new MovieModel(x));
+            var model = movies.Select(x => new MovieModel(x))
+                              .OrderBy(x => x.Name);
 
             return View("List", model);
            
         }
 
-        // GET: Details
+        // GET: Details/{id}
         public ActionResult Details ( int id )
         {
             var movie = _database.Get(id);
@@ -42,7 +43,7 @@ namespace MovieLibrary.WebHost.Controllers
             return View(new MovieModel(movie));
         }
 
-        // GET: Edit
+        // GET: Edit/{id}
         public ActionResult Edit ( int id )
         {
             var movie = _database.Get(id);
@@ -58,13 +59,98 @@ namespace MovieLibrary.WebHost.Controllers
         public ActionResult Edit ( MovieModel model )
         {
             //??Exception handling
-            //?? PRG
+
+            // Always do PRG for modifications
+            //   Post, Redirect, Get
+
+              //Check for model validity
+            if (ModelState.IsValid)
+                {
+                try
+                {
+                    _database.Update(model.Id, model.ToMovie());
+
+                    //Redirect to details of movie
+                    //Using anonymous type 
+                    //   new { id = E {, id = E}* }
+                    return RedirectToAction(nameof(Details), new { id = model.Id });
+                }catch(Exception e)
+                {
+                    //Never use this - it doesn't work
+                    //ModelState.AddModelError("", e);
+                    ModelState.AddModelError("", e.Message);
+                };
+            };
+            
+            return View(model);
+        }
+
+        // GET: Create/{id}
+        public ActionResult Create ( ) => View(new MovieModel());        
+
+        // POST: Create 
+        [HttpPost]
+        public ActionResult Create ( MovieModel model )
+        {
+            
+            // Always do PRG for modifications
+            //   Post, Redirect, Get
 
             //Check for model validity
             if (ModelState.IsValid)
             {
-                _database.Update(model.Id, model.ToMovie());
+                try
+                {
+                    var movie = _database.Add(model.ToMovie());
+
+                    //Redirect to details of movie
+                    //Using anonymous type 
+                    //   new { id = E {, id = E}* }
+                    return RedirectToAction(nameof(Details), new { id = movie.Id });
+                } catch (Exception e)
+                {
+                    //Never use this - it doesn't work
+                    //ModelState.AddModelError("", e);
+                    ModelState.AddModelError("", e.Message);
+                };
             };
+
+            return View(model);
+        }
+
+        // GET: Delete/{id}
+        public ActionResult Delete ( int id )
+        {
+            var movie = _database.Get(id);
+            if (movie == null)
+                return HttpNotFound(); //404
+
+
+            return View(new MovieModel(movie));
+        }
+
+        // POST: Delete
+        [HttpPost]
+        public ActionResult Delete ( MovieModel model )
+        {            
+            // Always do PRG for modifications
+            //   Post, Redirect, Get
+
+            //Check for model validity
+           
+                try
+                {
+                    _database.Delete(model.Id);
+
+                    //Redirect to list
+                    return RedirectToAction(nameof(Index));
+                } catch (Exception e)
+                {
+                    //Never use this - it doesn't work
+                    //ModelState.AddModelError("", e);
+                    ModelState.AddModelError("", e.Message);
+                };
+            
 
             return View(model);
         }

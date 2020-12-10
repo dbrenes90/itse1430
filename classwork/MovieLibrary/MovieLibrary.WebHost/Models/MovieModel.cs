@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace MovieLibrary.WebHost.Models
@@ -25,6 +26,7 @@ namespace MovieLibrary.WebHost.Models
             Name = movie.Name;
             Description = movie.Description;
             Rating = movie.Rating;
+            ReleaseYear = movie.ReleaseYear;
             RunLength = movie.RunLength;
             IsClassic = movie.IsClassic;
         }
@@ -113,6 +115,7 @@ namespace MovieLibrary.WebHost.Models
         
         
         //Range enforces a min, max value
+        [DisplayName("Run Length")]
         [Range(0, Int32.MaxValue, ErrorMessage = "Run length must be greater than or equal to 0.")]
         public int RunLength { get; set; } //auto property, used for ints not for strings
         /*{
@@ -122,7 +125,7 @@ namespace MovieLibrary.WebHost.Models
 
         
         
-        
+        [DisplayName("Release Year")]
         [Range(1900, 2100)]
         public int ReleaseYear { get; set; } 
         /*{
@@ -130,7 +133,7 @@ namespace MovieLibrary.WebHost.Models
             set { _releaseYear = value; }
         }*/
         
-
+        [DisplayName("Is Classic")]
         public bool IsClassic { get; set; }
         /*{
             get { return _isClassic;}
