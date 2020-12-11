@@ -93,15 +93,10 @@ namespace CharacterCreator.Web.Controllers
                 try
                 {
                     _database.Update(model.Id, model.ToCharacter());
-
-                    //Redirect to details of movie
-                    //Using anonymous type 
-                    //   new { id = E {, id = E}* }
+                    
                     return RedirectToAction(nameof(Details), new { id = model.Id });
                 } catch (Exception e)
-                {
-                    //Never use this - it doesn't work
-                    //ModelState.AddModelError("", e);
+                {                    
                     ModelState.AddModelError("", e.Message);
                 };
             };
