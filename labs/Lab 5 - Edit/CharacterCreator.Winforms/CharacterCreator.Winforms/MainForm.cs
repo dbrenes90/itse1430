@@ -60,10 +60,10 @@ namespace CharacterCreator.Winforms
         private void AddCharacter ( Character character )
         {
 
-            var newCharacter = _characters.Add(character, out var message);
+            var newCharacter = _characters.Add(character);
             if (newCharacter == null)
             {
-                MessageBox.Show(this, message, "Add Failed", MessageBoxButtons.OK);
+                //MessageBox.Show(this, message, "Add Failed", MessageBoxButtons.OK);
                 return;
             }
             RefreshRoster();
@@ -123,13 +123,13 @@ namespace CharacterCreator.Winforms
         }
         private void EditCharacter ( int id, Character character )
         {
-            var error = _characters.Update(id, character);
-            if (String.IsNullOrEmpty(error))
-            {
-                RefreshRoster();
-                return;
-            };
-            MessageBox.Show(this, error, "Edit Character", MessageBoxButtons.OK);
+            //var error = _characters.Update(id, character);
+            //if (String.IsNullOrEmpty(error))
+            //{
+            //    RefreshRoster();
+            //    return;
+            //};
+            //MessageBox.Show(this, error, "Edit Character", MessageBoxButtons.OK);
         }
 
     }

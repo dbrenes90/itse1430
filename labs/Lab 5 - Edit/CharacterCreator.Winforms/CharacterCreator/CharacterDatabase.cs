@@ -13,31 +13,25 @@ namespace CharacterCreator
 {
     public abstract class CharacterDatabase : ICharacterDatabase
     {       
-        public Character Add ( Character character, out string error )
+        public Character Add ( Character character )
         {
-            //var item = CloneCharacter(character);
-            //item.Id = _id++;
-            //error = "";
-            //_characters.Add(item);
-            //character.Id = item.Id;
-            var results = new ObjectValidator().TryValidateFullObject(character);
-            if (results.Count() > 0)
-            {
-                foreach ( var result in results)
-                {
-                    error = result.ErrorMessage;
-                    return null;
-                }
-            }
+            if (character == null)
+                throw new ArgumentNullException(nameof(character)); 
+
+            //ObjectValidator.ValidateFullObject(character);
+            
             var existing = GetByName(character.Name);
             if (existing != null)
-            {
-                error = "Character name must be unique";
-                return null;
-            }
+                throw new InvalidOperationException("Character must be unique");
 
-            error = null;
-            return AddCore(character);
+            try
+            {
+                return AddCore(character);
+            } catch (Exception e)
+            {
+                //Throwing a new exception 
+                throw new InvalidOperationException("Add Failed", e);
+            };
         }
         protected abstract Character AddCore(Character character);
         protected abstract void DeleteCore(int id);
@@ -48,12 +42,30 @@ namespace CharacterCreator
         }
         public IEnumerable<Character> GetAll ()
         {
-            return GetAllCore();
+            try
+            {
+                return GetAllCore();
+            } catch (Exception e)
+            {
+                //Throwing a new exception 
+                throw new InvalidOperationException("GetAll Failed", e);
+            };
         }
         protected abstract IEnumerable<Character> GetAllCore();
         public Character Get ( int id )
         {
-            return GetByIdCore(id);
+            if (id < 0)
+                throw new ArgumentOutOfRangeException(nameof(id), "Id must be greater than zero");
+
+
+            try
+            {
+                return GetByIdCore(id);
+            } catch (Exception e)
+            {
+                //Throwing a new exception 
+                throw new InvalidOperationException("Get Failed", e);
+            };
         }
         protected abstract Character GetByIdCore(int id);
         protected virtual Character GetByName ( string name)
@@ -66,23 +78,31 @@ namespace CharacterCreator
             return null;
 
         }     
-        public string Update ( int id, Character character )
+        public void Update ( int id, Character character )
         {
-            var results = new ObjectValidator().TryValidateFullObject(character);
-            if (results.Count() > 0)
-            {
-                foreach (var result in results)
-                {
-                    return result.ErrorMessage;
-                }
-            }
+            if (id < 0)
+                throw new ArgumentOutOfRangeException(nameof(id), "Id must be greater than zero");
+            if (character == null)
+                throw new ArgumentNullException(nameof(character));
+
+            // Character exists //TODO: Movie is valid
+           // ObjectValidator.ValidateFullObject(movie);
+
+
+
+            // Movie name is unique
             var existing = GetByName(character.Name);
-            if (existing != null && existing.Id!= id)
-                return "Character name must be unique";
+            if (existing != null && existing.Id != id)
+                throw new InvalidOperationException("Character must be unique");
 
-            UpdateCore(id, character);
-
-            return "";
+            try
+            {
+                UpdateCore(id, character);
+            } catch (Exception e)
+            {
+                //Throwing a new exception 
+                throw new InvalidOperationException("Update Failed", e);
+            };
         }
         protected abstract void UpdateCore(int id, Character character);      
        

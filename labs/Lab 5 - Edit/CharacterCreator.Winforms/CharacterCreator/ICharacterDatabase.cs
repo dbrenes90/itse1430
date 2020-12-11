@@ -13,7 +13,7 @@ namespace CharacterCreator
         /// <param name="character">The character to add.</param>
         /// <param name="error">The error message, if any.</param>
         /// <returns>The new character.</returns>
-        Character Add ( Character character, out string error );
+        Character Add ( Character character );
         /// <summary>
         /// Deletes a character from the database.</summary>
         /// <param name="id">The character to delete.</param>
@@ -29,6 +29,6 @@ namespace CharacterCreator
         /// <param name="id">The character to update.</param>
         /// <param name="character">The name of the character.</param>
         /// <returns></returns>
-        string Update ( int id, Character character );
+        void Update ( int id, Character character );
     }
 }

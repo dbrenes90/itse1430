@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+ * Daniel Brenes
+ * Lab 5 ITSE 1430
+ * Character Creator
+ * Character Class
+ * 12/11/2020
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
