@@ -17,20 +17,20 @@ namespace CharacterCreator.Web.Models
         public CharacterModel ()
         { }
 
-        //public CharacterModel ( Character character )
-        //{
-        //    Id = character.Id;
-        //    Name = character.Name;
-        //    Profession = character.Profession;
-        //    Race = character.Race;
-        //    Strength = character.Strength;
-        //    Intelligence = character.Intelligence;
-        //    Agility = character.Agility;
-        //    Constitution = character.Constitution;
-        //    Charisma = character.Charisma;
+        public CharacterModel ( Character character )
+        {
+            Id = character.Id;
+            Name = character.Name;
+            Profession = character.Profession;
+            Race = character.Race;
+            Strength = character.Strength;
+            Intelligence = character.Intelligence;
+            Agility = character.Agility;
+            Constitution = character.Constitution;
+            Charisma = character.Charisma;
 
-        //}
-        
+        }
+
         public int Id { get; set; }
 
         [Required(AllowEmptyStrings = false)]
