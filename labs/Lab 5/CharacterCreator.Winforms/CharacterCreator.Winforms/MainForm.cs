@@ -1,8 +1,8 @@
 ﻿/* Daniel Brenes
- * Lab 3 ITSE 1430
+ * Lab 5 ITSE 1430
  * Character Creator
  * Main Form
- * 10/30/2020
+ * 12/11/2020
  */
 using CharacterCreator.Memory;
 using System;
@@ -39,6 +39,7 @@ namespace CharacterCreator.Winforms
             RefreshRoster();
         }
         private ICharacterDatabase _characters = new MemoryCharacterDatabase();
+        //private const string _connectionString = @"
         private void OnCharacterDelete ( object sender, EventArgs e )
         {
             var character = GetSelectedCharacter();

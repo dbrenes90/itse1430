@@ -1,4 +1,10 @@
-﻿using System;
+﻿/* Daniel Brenes
+ * Lab 5 ITSE 1430
+ * Character Creator
+ * Main Form
+ * 12/11/2020
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,11 +26,11 @@ namespace CharacterCreator.Web.Controllers
             return View();
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
+        //public ActionResult Contact()
+        //{
+        //    ViewBag.Message = "Your contact page.";
 
-            return View();
-        }
+        //    return View();
+        //}
     }
 }

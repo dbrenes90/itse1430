@@ -67,19 +67,19 @@ namespace CharacterCreator
             if (String.IsNullOrEmpty(Race))
                 yield return new ValidationResult("Race is required", new[] { nameof(Race) });
 
-            if (Constitution < 50)
+            if (Constitution < 0 || Constitution > 100)
                 yield return new ValidationResult("Constitution must be 50 or greater", new[] { nameof(Name) });
 
-            if (Charisma < 50)
+            if (Charisma < 0 || Charisma > 100)
                 yield return new ValidationResult("Charisma must be 50 or greater", new[] { nameof(Name) });
 
-            if (Agility < 50)
+            if (Agility < 0 || Agility > 100)
                 yield return new ValidationResult("Agility must be 50 or greater", new[] { nameof(Name) });
 
-            if (Strength < 50)
+            if (Strength < 0 || Strength > 100)
                 yield return new ValidationResult("Strength must be 50 or greater", new[] { nameof(Name) });
 
-            if (Intelligence < 50)
+            if (Intelligence < 0 || Intelligence > 100)
                 yield return new ValidationResult("Intelligence must be 50 or greater", new[] { nameof(Name) });
         }
     }
