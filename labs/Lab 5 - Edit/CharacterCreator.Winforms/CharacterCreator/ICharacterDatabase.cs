@@ -1,7 +1,10 @@
-﻿//Daniel Brenes
-//ITSE 1430
-//11/02/2020
-//Character Creator Interface
+﻿/*
+ * Daniel Brenes
+ * Lab 5 ITSE 1430
+ * Character Creator
+ * Character Class
+ * 12/11/2020
+ */
 using System.Collections.Generic;
 
 

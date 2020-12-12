@@ -1,8 +1,9 @@
-﻿/* Daniel Brenes
- * Lab 3 ITSE 1430
+﻿/*
+ * Daniel Brenes
+ * Lab 5 ITSE 1430
  * Character Creator
- * Character Database
- * 11/02/2020
+ * Character Class
+ * 12/11/2020
  */
 using System;
 using System.Collections.Generic;

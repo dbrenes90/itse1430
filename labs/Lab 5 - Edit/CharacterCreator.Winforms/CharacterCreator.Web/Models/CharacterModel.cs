@@ -21,6 +21,7 @@ namespace CharacterCreator.Web.Models
         {
             Id = character.Id;
             Name = character.Name;
+            Description = character.Description;
             Profession = character.Profession;
             Race = character.Race;
             Strength = character.Strength;
