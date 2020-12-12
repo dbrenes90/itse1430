@@ -26,7 +26,7 @@ namespace CharacterCreator.Web.Controllers
         // GET: Character
         public ActionResult Index()
         {
-            var characters = _database.GetAll();
+            var characters = s_database.GetAll();
 
             var model = characters.Select(x => new CharacterModel(x))
                                     .OrderBy(x => x.Name);
@@ -36,14 +36,14 @@ namespace CharacterCreator.Web.Controllers
         // GET: Edit/{id}
         public ActionResult Details ( int id )
         {
-            var character = _database.Get(id);
+            var character = s_database.Get(id);
             if (character == null)
                 return HttpNotFound(); //404
 
             return View(new CharacterModel(character));
         }
 
-        //GET: Create/{id}
+        //GET: Create
         public ActionResult Create () => View(new CharacterModel());
 
         // POST: Create 
@@ -55,9 +55,9 @@ namespace CharacterCreator.Web.Controllers
             {
                 try
                 {
-                    var character = _database.Add(model.ToCharacter());
-                                       
-                    return RedirectToAction(nameof(Details), new { id = character.Id });
+                    var character = s_database.Add(model.ToCharacter());
+
+                    return RedirectToAction(nameof(Details), new { id = character.Id }) ;
                 } catch (Exception e)
                 {                    
                     ModelState.AddModelError("", e.Message);
@@ -70,7 +70,7 @@ namespace CharacterCreator.Web.Controllers
         // GET: Edit/{id}
         public ActionResult Edit ( int id )
         {
-            var character = _database.Get(id);
+            var character = s_database.Get(id);
             if (character == null)
                 return HttpNotFound(); //404
 
@@ -81,18 +81,12 @@ namespace CharacterCreator.Web.Controllers
         // POST: Edit
         [HttpPost]
         public ActionResult Edit ( CharacterModel model )
-        {
-            //??Exception handling
-
-            // Always do PRG for modifications
-            //   Post, Redirect, Get
-
-            //Check for model validity
+        {            
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _database.Update(model.Id, model.ToCharacter());
+                    s_database.Update(model.Id, model.ToCharacter());
                     
                     return RedirectToAction(nameof(Details), new { id = model.Id });
                 } catch (Exception e)
@@ -106,7 +100,7 @@ namespace CharacterCreator.Web.Controllers
         // GET: Delete/{id}
         public ActionResult Delete ( int id )
         {
-            var character = _database.Get(id);
+            var character = s_database.Get(id);
             if (character == null)
                 return HttpNotFound(); //404
 
@@ -118,10 +112,9 @@ namespace CharacterCreator.Web.Controllers
         [HttpPost]
         public ActionResult Delete ( CharacterModel model )
         {            
-
             try
             {
-                _database.Delete(model.Id);
+                s_database.Delete(model.Id);
                
                 return RedirectToAction(nameof(Index));
             } catch (Exception e)
@@ -129,10 +122,9 @@ namespace CharacterCreator.Web.Controllers
                 ModelState.AddModelError("", e.Message);
             };
 
-
             return View(model);
         }
 
-        private readonly static ICharacterDatabase _database = new CharacterCreator.Memory.MemoryCharacterDatabase();
+        private readonly static ICharacterDatabase s_database = new CharacterCreator.Memory.MemoryCharacterDatabase();
     }
 }

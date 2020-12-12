@@ -38,7 +38,17 @@ namespace CharacterCreator
 
         public void Delete ( int id )
         {
-            DeleteCore(id);
+            if (id <= 0)
+                throw new ArgumentOutOfRangeException(nameof(id), "Id must be greater than zero");
+
+            try
+            {
+                DeleteCore(id);
+            } catch (Exception e)
+            {
+                //Throwing a new exception 
+                throw new InvalidOperationException("DeleteFailed", e);
+            };
         }
         public IEnumerable<Character> GetAll ()
         {
@@ -57,27 +67,17 @@ namespace CharacterCreator
             if (id < 0)
                 throw new ArgumentOutOfRangeException(nameof(id), "Id must be greater than zero");
 
-
             try
             {
                 return GetByIdCore(id);
             } catch (Exception e)
-            {
-                //Throwing a new exception 
+            {               
                 throw new InvalidOperationException("Get Failed", e);
             };
         }
         protected abstract Character GetByIdCore(int id);
-        protected virtual Character GetByName ( string name)
-        {
-            foreach ( var character in GetAll())
-            {
-                if (String.Compare(character.Name, name, true) == 0)
-                    return character;
-            };
-            return null;
-
-        }     
+        protected virtual Character GetByName ( string name ) => GetAll().FirstOrDefault(x => String.Compare(x.Name, name, true) == 0);
+           
         public void Update ( int id, Character character )
         {
             if (id < 0)
@@ -87,8 +87,6 @@ namespace CharacterCreator
 
             // Character exists //TODO: Movie is valid
            // ObjectValidator.ValidateFullObject(movie);
-
-
 
             // Movie name is unique
             var existing = GetByName(character.Name);

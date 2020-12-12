@@ -48,7 +48,7 @@ namespace CharacterCreator.Web.Models
             };
         }
 
-        public int Id { get; set; }
+        public int Id { get; set; } 
 
         [Required(AllowEmptyStrings = false)]
         public string Name { get; set; }
@@ -90,20 +90,7 @@ namespace CharacterCreator.Web.Models
         //if (String.IsNullOrEmpty(Race))
         //    yield return new ValidationResult("Race is required", new[] { nameof(Race) });
 
-        //if (Constitution < 0 || Constitution > 100)
-        //    yield return new ValidationResult("Constitution must be 50 or greater", new[] { nameof(Name) });
-
-        //if (Charisma < 0 || Charisma > 100)
-        //    yield return new ValidationResult("Charisma must be 50 or greater", new[] { nameof(Name) });
-
-        //if (Agility < 0 || Agility > 100)
-        //    yield return new ValidationResult("Agility must be 50 or greater", new[] { nameof(Name) });
-
-        //if (Strength < 0 || Strength > 100)
-        //    yield return new ValidationResult("Strength must be 50 or greater", new[] { nameof(Name) });
-
-        //if (Intelligence < 0 || Intelligence > 100)
-        //    yield return new ValidationResult("Intelligence must be 50 or greater", new[] { nameof(Name) });
+        
         //}
     }
 }

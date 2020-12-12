@@ -17,7 +17,9 @@ namespace CharacterCreator.Memory
         {
             var item = CloneCharacter(character);
             item.Id = _id++;
+            
             _characters.Add(item);
+            character.Id = item.Id;
 
             return character;
 
